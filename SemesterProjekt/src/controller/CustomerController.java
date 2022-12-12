@@ -1,4 +1,6 @@
 package controller;
+import model.Customer;
+import model.CustomerContainer;
 
 public class CustomerController {
 	
