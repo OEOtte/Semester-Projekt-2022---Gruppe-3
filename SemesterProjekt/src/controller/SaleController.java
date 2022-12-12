@@ -1,6 +1,7 @@
 package controller;
 import model.Staff;
 import model.Product;
+import model.Customer;
 
 public class SaleController {
 	
@@ -8,15 +9,24 @@ public class SaleController {
 		
 	}
 	
-	public Product identifyProductByBarcode(String barCode) {
+	public Product identifyProductByBarcode(String barcode) {
+		Product p = null;
+		ProductController pc = new ProductController();
+		p = pc.identifyProductByBarcode(barcode);
+		return p;
 		
 	}
 	
 	public Product identifyProductByName(String name) {
-		return ProductController.identifyProductByName(name);
+		Product p = null;
+		ProductController pc = new ProductController();
+		p = pc.identifyProductByName(name);
+		return p;
 	}
 	
 	public Customer findCustomerByPhone(String phone) {
+		Customer c = null;
+		CustomerController cc = new CustomerControl();
 		
 	}
 	

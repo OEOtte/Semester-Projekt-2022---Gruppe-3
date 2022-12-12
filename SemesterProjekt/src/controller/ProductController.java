@@ -11,8 +11,10 @@ public class ProductController {
 		return product;
 	}
 	
-	public Product identifyProductByBarCode(String barCode) {
+	public Product identifyProductByBarcode(String barCode) {
 		Product res = null;
+		ProductContainer pc = ProductContainer.getInstance();
+		res = pc.getProductByBarcode(barCode);
 		return res;
 	}
 
