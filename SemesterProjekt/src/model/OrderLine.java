@@ -2,6 +2,8 @@ package model;
 
 import java.util.ArrayList;
 
+import model.ProductRelated.Product;
+
 public class OrderLine {
 	private int quantity;
 	private ArrayList<Product> products;
@@ -10,7 +12,6 @@ public class OrderLine {
 		products = new ArrayList<>();
 		products.add(p);
 		quantity = products.size();
-		
 	}
 	
 	public void setQuantity(int quantity) {
@@ -24,6 +25,9 @@ public class OrderLine {
 	
 	public int getQuantity() {
 		return quantity;
+	}
+	public ArrayList<Product> getProducts() {
+		return products;
 	}
 	
 	public void removeProduct(int quantity) {

@@ -1,19 +1,18 @@
 package controller;
-import model.Product;
-import model.ProductContainer;
+import model.ProductRelated.Product;
+import model.ProductRelated.ProductContainer;
 
 public class ProductController {
 	
-	public Product identifyProduct(String name, String barcode) {
+	public Product identifyProduct(String barcode, String name) {
 		ProductContainer pc = ProductContainer.getInstance();
-		Product product = null;
-		if(name == null) {
-			product = pc.getProductByBarcode(barcode);
-		} else if(barcode == null) {
+		
+		Product product = pc.getProductByBarcode(barcode);
+		
+		if (name != null) {
 			product = pc.getProductByName(name);
 		}
+		
 		return product;
 	}
-	
-
 }

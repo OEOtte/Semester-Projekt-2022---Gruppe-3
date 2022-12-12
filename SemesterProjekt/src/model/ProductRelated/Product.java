@@ -1,4 +1,4 @@
-package model;
+package model.ProductRelated;
 
 public class Product {
 	private String name;
@@ -7,6 +7,7 @@ public class Product {
 	private String barcode;
 	private String locationID;
 	private double price;
+	private double vat;
 	private int minStock;
 	private int maxStock;
 	
@@ -79,6 +80,13 @@ public class Product {
 	public void setMaxStock(int maxStock) {
 		this.maxStock = maxStock;
 	}
-	
 
+
+	public double getVat() {
+		vat = 4 / Math.floor(price);
+		return vat;
+	}
+	public double getTotalProductPrice() {
+		return price + vat;
+	}
 }

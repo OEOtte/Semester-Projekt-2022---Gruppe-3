@@ -1,6 +1,6 @@
 package controller;
-import model.Staff;
-import model.StaffContainer;
+import model.StaffRelated.Staff;
+import model.StaffRelated.StaffContainer;
 
 public class StaffController {
 	

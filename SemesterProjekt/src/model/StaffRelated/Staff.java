@@ -1,14 +1,15 @@
-package model;
+package model.StaffRelated;
 
 public class Staff {
 	private String name;
 	private String phoneNumber;
+	private StaffType staffType;
 	
-	public Staff(String name, String phoneNumber) {
+	public Staff(String name, String phoneNumber, StaffType staffType) {
 		this.name = name;
 		this.phoneNumber = phoneNumber;
+		this.staffType = staffType;
 	}
-	
 	
 	public String getName() {
 		return name;
@@ -21,8 +22,6 @@ public class Staff {
 	}
 	public void setPhoneNumber(String phoneNumber) {
 		this.phoneNumber = phoneNumber;
+		
 	}
-	
-	
-
 }

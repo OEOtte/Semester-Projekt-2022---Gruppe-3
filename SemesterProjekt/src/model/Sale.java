@@ -3,13 +3,17 @@ package model;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+import model.CustomerRelated.Customer;
+import model.ProductRelated.Product;
+import model.StaffRelated.Staff;
+
 public class Sale {
 	private String saleNumber;
 	private LocalDate orderDate;
 	private Staff employee;
 	private Customer customer;
-	private double totalPrice;
 	private double totalVAT;
+	private double totalPrice;
 	private ArrayList<OrderLine> ol = new ArrayList<>();
 	
 	public Sale(Staff employee) {
@@ -17,7 +21,17 @@ public class Sale {
 		totalPrice = 0;
 		totalVAT = 0;
 		customer = null;
-		
+	}
+	
+	public boolean findOrderline(Product p) {
+		if (ol == null) {
+			return false;
+		}
+		for (int i = 0; i < ol.size(); i++) {
+			ArrayList<Product> temp = ol.get(i).getProducts();
+			temp.get(i).equals(p);
+		}
+		return false;
 	}
 	
 	public void addOrderLine(OrderLine o) {
@@ -72,25 +86,26 @@ public class Sale {
 	}
 
 	public double getTotalPrice() {
+		for (int i = 0; i < ol.size(); i++) {
+			ArrayList<Product> temp = ol.get(i).getProducts();
+			for (int j = 0; j < temp.size(); j++) {
+				totalPrice += temp.get(j).getTotalProductPrice();
+			}
+		}
 		return totalPrice;
 	}
 
-	public void setTotalPrice(double totalPrice) {
-		this.totalPrice = totalPrice;
-	}
-
 	public double getTotalVAT() {
+		for (int i = 0; i < ol.size(); i++) {
+			ArrayList<Product> temp = ol.get(i).getProducts();
+			for (int j = 0; j < temp.size(); j++) {
+				totalVAT += temp.get(j).getVat();
+			}
+		}
 		return totalVAT;
-	}
-
-	public void setTotalVAT(double totalVAT) {
-		this.totalVAT = totalVAT;
 	}
 
 	public String getSaleNumber() {
 		return saleNumber;
 	}
-
-	
-
 }

@@ -1,4 +1,4 @@
-package model;
+package model.StaffRelated;
 
 import java.util.ArrayList;
 

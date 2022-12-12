@@ -1,15 +1,18 @@
 package controller;
-import model.Staff;
-import model.Product;
-import model.Customer;
+import model.CustomerRelated.Customer;
+import model.ProductRelated.Product;
+import model.StaffRelated.Staff;
+import model.Sale;
+import model.SaleContainer;
 
 public class SaleController {
-	
+	private Sale newSale;
+	private Customer customer = null;
 	public void registerSale(Staff employee) {
-		
+		newSale = new Sale(employee);
 	}
 	
-	public Product identifyProductByBarcode(String barcode) {
+	public Product identifyProduct(String barcode, String name) {
 		Product p = null;
 		ProductController pc = new ProductController();
 		p = pc.identifyProduct(null, barcode);
@@ -17,31 +20,30 @@ public class SaleController {
 		
 	}
 	
-	public Product identifyProductByName(String name) {
-		Product p = null;
-		ProductController pc = new ProductController();
-		p = pc.identifyProduct(name, null);
-		return p;
-	}
-	
 	public Customer findCustomerByPhone(String phone) {
-		Customer c = null;
-		CustomerController cc = new CustomerControl();
-		c = cc.findCustomerByPhone(phone);
-		return c;
-		
+		CustomerController cc = new CustomerController();
+		customer = cc.findCustomerByPhone(phone);
+		return customer;
 	}
 	
-	public void insertPincode(String pincode) {
-		
+	public boolean insertPincode(String pincode) {
+		return isPincode(pincode);
 	}
 	
-	public boolean paymentByAccount(Customer acc) {
-		
+	private boolean isPincode(String pincode) {
+		return pincode.equals(customer.getPin());
+	}
+
+	public boolean paymentByAccount() {
+		if (customer.getCredits() < newSale.getTotalPrice()) {
+			
+		}
+		return newSale.getTotalPrice() <= customer.getCredits();
 	}
 	
 	public void addSale(Sale s) {
-		
+		SaleContainer sc = SaleContainer.getInstance();
+		sc.addSale(s);
 	}
 
 }

@@ -1,4 +1,4 @@
-package model;
+package model.CustomerRelated;
 
 public class Customer {
 	private String name;
@@ -7,6 +7,7 @@ public class Customer {
 	private String pincode;
 	private String customerNumber;
 	private String group;
+	private double credits;
 	private CustomerType customerType;
 	
 	public Customer() {
@@ -14,6 +15,7 @@ public class Customer {
 	}
 	
 	public boolean payForOrder(double price) {
+		return false;
 		
 	}
 	
@@ -52,6 +54,12 @@ public class Customer {
 	}
 	public void setGroup(String group) {
 		this.group = group;
+	}
+	public double getCredits() {
+		return credits;
+	}
+	public void setCredits(double credits) {
+		this.credits = credits;
 	}
 
 }

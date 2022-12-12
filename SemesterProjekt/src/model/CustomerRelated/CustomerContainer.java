@@ -1,4 +1,4 @@
-package model;
+package model.CustomerRelated;
 
 import java.util.ArrayList;
 
@@ -20,7 +20,7 @@ public class CustomerContainer {
 	public Customer findCustomerbyPhone(String phone) {
 		Customer customer = null;
 		for(int i = 0; i < list.size(); i++) {
-			if(list.get(i).getPhone() == phone) {
+			if(list.get(i).getPhone().equals(phone)) {
 				customer = list.get(i);
 				i = list.size();
 			}
@@ -30,6 +30,11 @@ public class CustomerContainer {
 	
 	public boolean payWithAccount(Customer acc, double price) {
 		return true;
+	}
+
+	public Customer findCustomerByPhone(String phone) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
