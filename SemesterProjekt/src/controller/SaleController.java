@@ -27,6 +27,8 @@ public class SaleController {
 	public Customer findCustomerByPhone(String phone) {
 		Customer c = null;
 		CustomerController cc = new CustomerControl();
+		c = cc.findCustomerByPhone(phone);
+		return c;
 		
 	}
 	

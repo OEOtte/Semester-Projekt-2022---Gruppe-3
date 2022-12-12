@@ -2,11 +2,11 @@ package model;
 import java.util.ArrayList;
 
 public class SaleContainer {
-	private SaleContainer instance;
+	private static SaleContainer instance;
 	private ArrayList<Sale> list;
 	
 	
-	public SaleContainer getInstance() {
+	public static SaleContainer getInstance() {
 		if(instance == null) {
 			instance = new SaleContainer();
 			return instance;
@@ -19,7 +19,7 @@ public class SaleContainer {
 	}
 	
 	public void addSale(Sale s) {
-		
+		list.add(s);
 	}
 
 }
