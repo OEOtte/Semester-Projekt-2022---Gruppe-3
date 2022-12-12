@@ -3,13 +3,12 @@ package model;
 import java.util.ArrayList;
 
 public class ProductContainer {
-	
 	private static ProductContainer instance;
 	private ArrayList<Product> list;
 	
-	public ProductContainer getInstance() {
+	public static ProductContainer getInstance() {
 		if(instance == null) {
-			list = new ArrayList<>();
+			instance = new ProductContainer();
 			return instance;
 		}
 		return instance;
