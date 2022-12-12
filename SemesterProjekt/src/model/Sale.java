@@ -1,14 +1,16 @@
 package model;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 public class Sale {
 	private String saleNumber;
-	private LocalDate localdate;
+	private LocalDate orderDate;
 	private Staff employee;
 	private Customer customer;
 	private double totalPrice;
 	private double totalVAT;
+	private ArrayList<OrderLine> ol = new ArrayList<>();
 	
 	public Sale(Staff employee) {
 		this.employee = employee;
@@ -19,7 +21,7 @@ public class Sale {
 	}
 	
 	public void addOrderLine(OrderLine o) {
-		
+		ol.add(o);
 	}
 	
 	public void setSaleNumber(String saleNumber) {
@@ -38,12 +40,19 @@ public class Sale {
 		
 	}
 	
+	public boolean findOrderLine(Product p) {
+		for(int i = 0; i < ol.size(); i++) {
+			//if(ol.get(i) == p.getBarcode())
+		}
+		return true;
+	}
+	
 	public LocalDate getLocaldate() {
-		return localdate;
+		return orderDate;
 	}
 
 	public void setLocaldate(LocalDate localdate) {
-		this.localdate = localdate;
+		this.orderDate = localdate;
 	}
 
 	public Staff getEmployee() {

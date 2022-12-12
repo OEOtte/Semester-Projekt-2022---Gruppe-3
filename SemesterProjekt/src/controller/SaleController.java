@@ -12,7 +12,7 @@ public class SaleController {
 	public Product identifyProductByBarcode(String barcode) {
 		Product p = null;
 		ProductController pc = new ProductController();
-		p = pc.identifyProductByBarcode(barcode);
+		p = pc.identifyProduct(null, barcode);
 		return p;
 		
 	}
@@ -20,7 +20,7 @@ public class SaleController {
 	public Product identifyProductByName(String name) {
 		Product p = null;
 		ProductController pc = new ProductController();
-		p = pc.identifyProductByName(name);
+		p = pc.identifyProduct(name, null);
 		return p;
 	}
 	

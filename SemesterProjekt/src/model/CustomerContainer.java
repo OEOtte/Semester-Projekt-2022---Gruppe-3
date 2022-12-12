@@ -27,5 +27,9 @@ public class CustomerContainer {
 		}
 		return customer;
 	}
+	
+	public boolean payWithAccount(Customer acc, double price) {
+		return true;
+	}
 
 }

@@ -4,8 +4,9 @@ public class Staff {
 	private String name;
 	private String phoneNumber;
 	
-	public Staff() {
-		
+	public Staff(String name, String phoneNumber) {
+		this.name = name;
+		this.phoneNumber = phoneNumber;
 	}
 	
 	

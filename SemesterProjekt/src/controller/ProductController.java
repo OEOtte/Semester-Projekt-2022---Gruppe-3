@@ -4,18 +4,16 @@ import model.ProductContainer;
 
 public class ProductController {
 	
-	public Product identifyProductByName(String name) {
+	public Product identifyProduct(String name, String barcode) {
 		ProductContainer pc = ProductContainer.getInstance();
 		Product product = null;
-		product = pc.getProductByName(name);
+		if(name == null) {
+			product = pc.getProductByBarcode(barcode);
+		} else if(barcode == null) {
+			product = pc.getProductByName(name);
+		}
 		return product;
 	}
 	
-	public Product identifyProductByBarcode(String barCode) {
-		Product res = null;
-		ProductContainer pc = ProductContainer.getInstance();
-		res = pc.getProductByBarcode(barCode);
-		return res;
-	}
 
 }

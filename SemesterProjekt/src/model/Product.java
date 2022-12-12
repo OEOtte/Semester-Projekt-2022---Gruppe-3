@@ -4,7 +4,11 @@ public class Product {
 	private String name;
 	private String description;
 	private String category;
-	private String barCode;
+	private String barcode;
+	private String locationID;
+	private double price;
+	private int minStock;
+	private int maxStock;
 	
 	public Product() {
 		
@@ -29,11 +33,51 @@ public class Product {
 	public void setCategory(String category) {
 		this.category = category;
 	}
-	public String getBarCode() {
-		return barCode;
+	public String getBarcode() {
+		return barcode;
 	}
-	public void setBarCode(String barCode) {
-		this.barCode = barCode;
+	public void setBarcode(String barcode) {
+		this.barcode = barcode;
+	}
+
+
+	public String getLocationID() {
+		return locationID;
+	}
+
+
+	public void setLocationID(String locationID) {
+		this.locationID = locationID;
+	}
+
+
+	public double getPrice() {
+		return price;
+	}
+
+
+	public void setPrice(double price) {
+		this.price = price;
+	}
+
+
+	public int getMinStock() {
+		return minStock;
+	}
+
+
+	public void setMinStock(int minStock) {
+		this.minStock = minStock;
+	}
+
+
+	public int getMaxStock() {
+		return maxStock;
+	}
+
+
+	public void setMaxStock(int maxStock) {
+		this.maxStock = maxStock;
 	}
 	
 

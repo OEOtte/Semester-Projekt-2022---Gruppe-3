@@ -32,7 +32,7 @@ public class ProductContainer {
 	public Product getProductByBarcode(String barcode) {
 		Product product = null;
 		for(int i = 0; i < list.size(); i++) {
-			if(list.get(i).getBarCode() == barcode) {
+			if(list.get(i).getBarcode() == barcode) {
 				product = list.get(i);
 				i = list.size();
 			}

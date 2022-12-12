@@ -4,11 +4,16 @@ public class Customer {
 	private String name;
 	private String phone;
 	private String email;
-	private String pin;
+	private String pincode;
 	private String customerNumber;
 	private String group;
+	private CustomerType customerType;
 	
 	public Customer() {
+		
+	}
+	
+	public boolean payForOrder(double price) {
 		
 	}
 	
@@ -31,10 +36,10 @@ public class Customer {
 		this.email = email;
 	}
 	public String getPin() {
-		return pin;
+		return pincode;
 	}
 	public void setPin(String pin) {
-		this.pin = pin;
+		this.pincode = pin;
 	}
 	public String getCustomerNumber() {
 		return customerNumber;
