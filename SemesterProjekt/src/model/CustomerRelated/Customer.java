@@ -8,10 +8,15 @@ public class Customer {
 	private String customerNumber;
 	private String group;
 	private double credits;
-	private CustomerType customerType;
 	
-	public Customer(CustomerType customerType) {
-		this.setCustomerType(customerType);
+	public Customer(String name, String phone, String email, String pincode, String customerNumber, String group, double credits) {
+		this.name = name;
+		this.phone = phone;
+		this.email = email;
+		this.pincode = pincode;
+		this.customerNumber = customerNumber;
+		this.group = group;
+		this.credits = credits;
 	}
 	
 	public boolean payForOrder(double price) {
@@ -49,12 +54,6 @@ public class Customer {
 	public void setCustomerNumber(String customerNumber) {
 		this.customerNumber = customerNumber;
 	}
-	public String getGroup() {
-		return group;
-	}
-	public void setGroup(String group) {
-		this.group = group;
-	}
 	public double getCredits() {
 		return credits;
 	}
@@ -62,12 +61,12 @@ public class Customer {
 		this.credits = credits;
 	}
 
-	public CustomerType getCustomerType() {
-		return customerType;
+	public String getGroup() {
+		return group;
 	}
 
-	public void setCustomerType(CustomerType customerType) {
-		this.customerType = customerType;
+	public void setGroup(String group) {
+		this.group = group;
 	}
 
 }

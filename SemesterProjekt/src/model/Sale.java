@@ -48,7 +48,7 @@ public class Sale {
 		String temp = "";
 		for (int i = 1; i <= 3; i++) {
 			temp = "group " + i;
-			if (temp.equals(customer.getCustomerType().getGroup())) {
+			if (temp.equals(customer.getGroup())) {
 				String helper = "0." + i;
 				double x = Double.parseDouble(helper);
 				totalPrice -= totalPrice*(x);

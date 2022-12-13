@@ -11,8 +11,16 @@ public class Product {
 	private int minStock;
 	private int maxStock;
 	
-	public Product() {
-		
+	public Product(String name, String description, String category, String barcode, String locationID, double price, double vat, int minStock, int maxStock) {
+		this.name = name;
+		this.description = description;
+		this.category = category;
+		this.barcode = barcode;
+		this.locationID = locationID;
+		this.price = price;
+		this.vat = vat;
+		this.minStock = minStock;
+		this.maxStock = maxStock;
 	}
 	
 	
