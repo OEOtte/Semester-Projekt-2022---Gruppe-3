@@ -23,15 +23,17 @@ public class Sale {
 		customer = null;
 	}
 	
-	public boolean findOrderline(Product p) {
+	public OrderLine findOrderline(Product p) {
 		if (ol == null) {
-			return false;
+			return null;
 		}
 		for (int i = 0; i < ol.size(); i++) {
 			ArrayList<Product> temp = ol.get(i).getProducts();
-			temp.get(i).equals(p);
+			if (temp.get(i).equals(p)) {				
+				return ol.get(i);
+			}
 		}
-		return false;
+		return null;
 	}
 	
 	public void addOrderLine(OrderLine o) {
@@ -42,23 +44,24 @@ public class Sale {
 		this.saleNumber = saleNumber;
 	}
 	
-	public void updatePrice(double price) {
-		totalPrice += price;
+	public void updatePrice(Customer c) {
+		String temp = "";
+		for (int i = 1; i <= 3; i++) {
+			temp = "group " + i;
+			if (temp.equals(customer.getCustomerType().getGroup())) {
+				String helper = "0." + i;
+				double x = Double.parseDouble(helper);
+				totalPrice -= totalPrice*(x);
+			}
+		}
 	}
-	
+
 	public void updateVAT(double VAT) {
 		totalVAT += VAT;
 	}
 	
-	public void addCustomer() {
-		
-	}
-	
-	public boolean findOrderLine(Product p) {
-		for(int i = 0; i < ol.size(); i++) {
-			//if(ol.get(i) == p.getBarcode())
-		}
-		return true;
+	public void addCustomer(Customer customer) {
+		this.customer = customer;
 	}
 	
 	public LocalDate getLocaldate() {
@@ -93,6 +96,10 @@ public class Sale {
 			}
 		}
 		return totalPrice;
+	}
+	
+	public void setTotalPrice(double price) {
+		this.totalPrice = price;
 	}
 
 	public double getTotalVAT() {

@@ -10,8 +10,8 @@ public class Customer {
 	private double credits;
 	private CustomerType customerType;
 	
-	public Customer() {
-		
+	public Customer(CustomerType customerType) {
+		this.setCustomerType(customerType);
 	}
 	
 	public boolean payForOrder(double price) {
@@ -60,6 +60,14 @@ public class Customer {
 	}
 	public void setCredits(double credits) {
 		this.credits = credits;
+	}
+
+	public CustomerType getCustomerType() {
+		return customerType;
+	}
+
+	public void setCustomerType(CustomerType customerType) {
+		this.customerType = customerType;
 	}
 
 }
