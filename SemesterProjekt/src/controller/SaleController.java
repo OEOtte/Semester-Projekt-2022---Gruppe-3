@@ -35,10 +35,11 @@ public class SaleController {
 	}
 
 	public boolean paymentByAccount() {
-		if (customer.getCredits() < newSale.getTotalPrice()) {
-			
+		if (!(customer.getCredits() < newSale.getTotalPrice())) {
+			customer.setCredits(customer.getCredits()-newSale.getTotalPrice());
+			return true;
 		}
-		return newSale.getTotalPrice() <= customer.getCredits();
+		return false;
 	}
 	
 	public void addSale(Sale s) {
