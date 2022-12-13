@@ -7,8 +7,11 @@ import org.junit.jupiter.api.Test;
 
 import model.Sale;
 import model.CustomerRelated.Customer;
+import model.CustomerRelated.CustomerContainer;
 import model.ProductRelated.Product;
+import model.ProductRelated.ProductContainer;
 import model.StaffRelated.Staff;
+import model.StaffRelated.StaffContainer;
 import model.StaffRelated.StaffType;
 import controller.SaleController;
 
@@ -17,6 +20,9 @@ class SaleTester {
 	private Product product;
 	private Staff employee;
 	private SaleController saleController;
+	private StaffContainer staffCon;
+	private CustomerContainer customerCon;
+	private ProductContainer productCon;
 	private static final String CUSTOMERNAME = "Paul";
 	private static final String PHONE = "12345678";
 	private static final String EMAIL = "Paul@";
@@ -39,16 +45,26 @@ class SaleTester {
 	public SaleTester() {}
 	@BeforeEach
 	void setup() {
-		saleController = new SaleController();
 		customer = new Customer(CUSTOMERNAME, PHONE, EMAIL, PINCODE, CUSTOMERNUMBER, GROUP, CREDITS);
 		product = new Product(PRODUCTNAME, DESCRIPTION, CATEGORY, BARCODE, lOCATIONID, PRICE, VAT, MINSTOCK, MAXSTOCK);
 		employee = new Staff(STAFFNAME, PHONENUMBER, STAFFTYPE);
+		saleController = new SaleController();
+		staffCon = StaffContainer.getInstance();
+		staffCon.addStaff(employee);
+		customerCon = CustomerContainer.getInstance();
+		customerCon.addCustomer(customer);
+		productCon = ProductContainer.getInstance();
+		productCon.addProduct(product);
 	}
 	@Test
-	void addCustomerToSale() {
+	void customerAssociatedWithSale() {
 		Sale s = saleController.registerSale(employee);
-		s.addCustomer(customer);
-		assertEquals(s.getCustomer(), customer);
+		Customer c = saleController.findCustomerByPhone(PHONE);
+		boolean isCustomer = saleController.insertPincode(PINCODE);
+		if (isCustomer) {
+			s.addCustomer(c);
+		}
+		assertEquals(s.getCustomer(), c);
 	}
 
 }

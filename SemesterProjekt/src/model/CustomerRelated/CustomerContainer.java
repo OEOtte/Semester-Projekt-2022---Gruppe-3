@@ -35,11 +35,4 @@ public class CustomerContainer {
 	public boolean payWithAccount(Customer acc, double price) {
 		return true;
 	}
-
-	public Customer findCustomerByPhone(String phone) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	
 }
