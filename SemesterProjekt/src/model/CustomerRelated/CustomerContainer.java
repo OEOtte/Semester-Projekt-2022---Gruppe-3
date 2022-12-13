@@ -28,6 +28,10 @@ public class CustomerContainer {
 		return customer;
 	}
 	
+	public void addCustomer(Customer c) {
+		list.add(c);
+	}
+	
 	public boolean payWithAccount(Customer acc, double price) {
 		return true;
 	}
@@ -37,4 +41,5 @@ public class CustomerContainer {
 		return null;
 	}
 
+	
 }
