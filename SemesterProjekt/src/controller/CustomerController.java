@@ -6,7 +6,7 @@ public class CustomerController {
 	
 	public Customer findCustomerByPhone(String phone) {
 		CustomerContainer cCon = CustomerContainer.getInstance();
-		Customer c = cCon.findCustomerByPhone(phone);
+		Customer c = cCon.findCustomerbyPhone(phone);
 		return c;
 	}
 }
