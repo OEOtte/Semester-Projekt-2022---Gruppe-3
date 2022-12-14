@@ -18,12 +18,13 @@ public class SaleController {
 	public Product identifyProduct(String barcode, String name) {
 		Product p = null;
 		ProductController pc = new ProductController();
-		p = pc.identifyProduct(null, barcode);
+		p = pc.identifyProduct(barcode, null);
 		OrderLine ol = newSale.findOrderline(p);
 		if (ol == null) {
 			ol = new OrderLine(p);
 		}
 		ol.incrementQuantity(p);
+		newSale.updatePrice(p);
 		return p;
 	}
 	
@@ -47,13 +48,15 @@ public class SaleController {
 	}
 
 	public boolean paymentByAccount() {
-		if (!(customer.getCredits() < newSale.getTotalPrice())) {
+		boolean res = false;
+		if (customer.getCredits() >= newSale.getTotalPrice()) {
 			customer.setCredits(customer.getCredits()-newSale.getTotalPrice());
 			addSale(newSale);
-			return true;
+			res = true;
 		}
-		customer.setCredits(newSale.getTotalPrice()-customer.getCredits());
-		return false;
+		newSale.setTotalPrice(newSale.getTotalPrice() - customer.getCredits());
+		customer.setCredits(0);
+		return res;
 	}
 	
 	public void addSale(Sale s) {

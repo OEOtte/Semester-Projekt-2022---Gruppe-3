@@ -55,6 +55,10 @@ public class Sale {
 			}
 		}
 	}
+	
+	public void updatePrice(Product p) {
+		totalPrice += p.getPrice() + p.getVat();
+	}
 
 	public void updateVAT(double VAT) {
 		totalVAT += VAT;
@@ -89,12 +93,6 @@ public class Sale {
 	}
 
 	public double getTotalPrice() {
-		for (int i = 0; i < ol.size(); i++) {
-			ArrayList<Product> temp = ol.get(i).getProducts();
-			for (int j = 0; j < temp.size(); j++) {
-				totalPrice += temp.get(j).getTotalProductPrice();
-			}
-		}
 		return totalPrice;
 	}
 	

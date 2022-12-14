@@ -11,14 +11,13 @@ public class Product {
 	private int minStock;
 	private int maxStock;
 	
-	public Product(String name, String description, String category, String barcode, String locationID, double price, double vat, int minStock, int maxStock) {
+	public Product(String name, String description, String category, String barcode, String locationID, double price, int minStock, int maxStock) {
 		this.name = name;
 		this.description = description;
 		this.category = category;
 		this.barcode = barcode;
 		this.locationID = locationID;
 		this.price = price;
-		this.vat = vat;
 		this.minStock = minStock;
 		this.maxStock = maxStock;
 	}
@@ -91,7 +90,7 @@ public class Product {
 
 
 	public double getVat() {
-		vat = 4 / Math.floor(price);
+		vat = Math.floor(price) / 4;
 		return vat;
 	}
 	public double getTotalProductPrice() {

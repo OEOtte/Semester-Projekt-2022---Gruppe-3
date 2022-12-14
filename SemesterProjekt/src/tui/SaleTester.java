@@ -16,7 +16,8 @@ import model.StaffRelated.StaffType;
 import controller.SaleController;
 
 class SaleTester {
-	private Customer customer;
+	private Customer customerSuccess;
+	private Customer customerFail;
 	private Product product;
 	private Staff employee;
 	private SaleController saleController;
@@ -36,35 +37,61 @@ class SaleTester {
 	private static final String BARCODE = "999999";
 	private static final String lOCATIONID = "DIY Aalborg";
 	private static final double PRICE = 250;
-	private static final double VAT = 50;
 	private static final int MINSTOCK = 5;
 	private static final int MAXSTOCK = 20;
 	private static final String STAFFNAME = "Oscar";
 	private static final String PHONENUMBER = "12312312";
 	private static final StaffType STAFFTYPE = null;
 	public SaleTester() {}
+	
 	@BeforeEach
 	void setup() {
-		customer = new Customer(CUSTOMERNAME, PHONE, EMAIL, PINCODE, CUSTOMERNUMBER, GROUP, CREDITS);
-		product = new Product(PRODUCTNAME, DESCRIPTION, CATEGORY, BARCODE, lOCATIONID, PRICE, VAT, MINSTOCK, MAXSTOCK);
+		customerSuccess = new Customer(CUSTOMERNAME, PHONE, EMAIL, PINCODE, CUSTOMERNUMBER, GROUP, CREDITS);
+		customerFail = new Customer(CUSTOMERNAME, "87654321", EMAIL, "4321", "02", GROUP, 0);
+		product = new Product(PRODUCTNAME, DESCRIPTION, CATEGORY, BARCODE, lOCATIONID, PRICE, MINSTOCK, MAXSTOCK);
 		employee = new Staff(STAFFNAME, PHONENUMBER, STAFFTYPE);
 		saleController = new SaleController();
 		staffCon = StaffContainer.getInstance();
 		staffCon.addStaff(employee);
 		customerCon = CustomerContainer.getInstance();
-		customerCon.addCustomer(customer);
+		customerCon.addCustomer(customerSuccess);
+		customerCon.addCustomer(customerFail);
 		productCon = ProductContainer.getInstance();
 		productCon.addProduct(product);
 	}
+	
+	@Test
+	void checkIfSaleIsRegistered() {
+		Sale s = saleController.registerSale(employee);
+		assertTrue(s != null);
+	}
+	
 	@Test
 	void customerAssociatedWithSale() {
 		Sale s = saleController.registerSale(employee);
 		Customer c = saleController.findCustomerByPhone(PHONE);
-		boolean isCustomer = saleController.insertPincode(PINCODE);
-		if (isCustomer) {
-			s.addCustomer(c);
-		}
+		saleController.insertPincode(PINCODE);
 		assertEquals(s.getCustomer(), c);
+	}
+	
+	@Test
+	void paymentByAccountSuccess() {
+		Sale s = saleController.registerSale(employee);
+		Product p = saleController.identifyProduct(BARCODE, null);
+		Customer c = saleController.findCustomerByPhone(PHONE);
+		saleController.insertPincode(PINCODE);
+		
+		assertTrue(saleController.paymentByAccount());
+	}
+	
+	@Test
+	void paymentByAccountFail() {
+		Sale s = saleController.registerSale(employee);
+		Product p = saleController.identifyProduct(BARCODE, null);
+		Customer c = saleController.findCustomerByPhone("87654321");
+		saleController.insertPincode("4321");
+	
+		assertFalse(saleController.paymentByAccount());
 	}
 
 }
