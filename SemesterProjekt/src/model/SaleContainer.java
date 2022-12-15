@@ -19,7 +19,10 @@ public class SaleContainer {
 	}
 	
 	public void addSale(Sale s) {
+		if (list.size() <= 9) {
+			s.setSaleNumber("0" + list.size()+1);
+		}
+		s.setSaleNumber("" + list.size()+1);
 		list.add(s);
 	}
-
 }

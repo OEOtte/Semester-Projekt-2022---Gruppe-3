@@ -18,14 +18,27 @@ public class SaleController {
 	public Product identifyProduct(String barcode, String name) {
 		Product p = null;
 		ProductController pc = new ProductController();
-		p = pc.identifyProduct(barcode, null);
-		OrderLine ol = newSale.findOrderline(p);
-		if (ol == null) {
-			ol = new OrderLine(p);
+		if (barcode != null) {
+			p = pc.identifyProduct(barcode, null);
+		} else {
+			p = pc.identifyProduct(null, name);
 		}
-		ol.incrementQuantity(p);
-		newSale.updatePrice(p);
-		return p;
+		
+		if (p == null) {
+			return p;
+		}
+		
+		if (newSale.findOrderline(p) == null) {
+			OrderLine ol = new OrderLine(p);
+			newSale.addOrderLine(ol);
+			newSale.updatePrice(p);
+			return p;
+		} else {
+			newSale.findOrderline(p).incrementQuantity(p);
+			newSale.addOrderLine(newSale.findOrderline(p));
+			newSale.updatePrice(p);
+			return p;
+		}
 	}
 	
 	public Customer findCustomerByPhone(String phone) {
@@ -48,18 +61,17 @@ public class SaleController {
 	}
 
 	public boolean paymentByAccount() {
-		boolean res = false;
-		if (customer.getCredits() >= newSale.getTotalPrice()) {
-			customer.setCredits(customer.getCredits()-newSale.getTotalPrice());
-			addSale(newSale);
-			res = true;
+		if (!(customer.getCredits() >= newSale.getTotalPrice())) {
+			newSale.setTotalPrice(newSale.getTotalPrice() - customer.getCredits());
+			customer.setCredits(0);
+			return false;
 		}
-		newSale.setTotalPrice(newSale.getTotalPrice() - customer.getCredits());
-		customer.setCredits(0);
-		return res;
+		customer.setCredits(customer.getCredits()-newSale.getTotalPrice());
+		addSale(newSale);
+		return true;
 	}
 	
-	public void addSale(Sale s) {
+	private void addSale(Sale s) {
 		SaleContainer sc = SaleContainer.getInstance();
 		sc.addSale(s);
 	}

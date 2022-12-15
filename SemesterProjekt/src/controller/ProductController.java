@@ -6,13 +6,14 @@ public class ProductController {
 	
 	public Product identifyProduct(String barcode, String name) {
 		ProductContainer pc = ProductContainer.getInstance();
+		Product p = null;
 		
-		Product product = pc.getProductByBarcode(barcode);
-		
-		if (name != null) {
-			product = pc.getProductByName(name);
+		if (barcode != null) {
+			p = pc.getProductByBarcode(barcode);
+		} else if (name != null) {
+			p = pc.getProductByName(name);
 		}
 		
-		return product;
+		return p;
 	}
 }

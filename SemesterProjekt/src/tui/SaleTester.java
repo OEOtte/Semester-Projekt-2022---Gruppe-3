@@ -25,7 +25,7 @@ class SaleTester {
 	private CustomerContainer customerCon;
 	private ProductContainer productCon;
 	private static final String CUSTOMERNAME = "Paul";
-	private static final String PHONE = "12345678";
+	private static final String PHONE = "89734533";
 	private static final String EMAIL = "Paul@";
 	private static final String PINCODE = "1234";
 	private static final String CUSTOMERNUMBER = "01";
@@ -40,7 +40,7 @@ class SaleTester {
 	private static final int MINSTOCK = 5;
 	private static final int MAXSTOCK = 20;
 	private static final String STAFFNAME = "Oscar";
-	private static final String PHONENUMBER = "12312312";
+	private static final String STAFFPHONE = "12312312";
 	private static final StaffType STAFFTYPE = null;
 	public SaleTester() {}
 	
@@ -49,7 +49,8 @@ class SaleTester {
 		customerSuccess = new Customer(CUSTOMERNAME, PHONE, EMAIL, PINCODE, CUSTOMERNUMBER, GROUP, CREDITS);
 		customerFail = new Customer(CUSTOMERNAME, "87654321", EMAIL, "4321", "02", GROUP, 0);
 		product = new Product(PRODUCTNAME, DESCRIPTION, CATEGORY, BARCODE, lOCATIONID, PRICE, MINSTOCK, MAXSTOCK);
-		employee = new Staff(STAFFNAME, PHONENUMBER, STAFFTYPE);
+		Product product2 = new Product("MaskineTester", DESCRIPTION, CATEGORY, "89234", lOCATIONID, PRICE, MINSTOCK, MAXSTOCK);
+		employee = new Staff(STAFFNAME, STAFFPHONE, STAFFTYPE);
 		saleController = new SaleController();
 		staffCon = StaffContainer.getInstance();
 		staffCon.addStaff(employee);
@@ -58,6 +59,7 @@ class SaleTester {
 		customerCon.addCustomer(customerFail);
 		productCon = ProductContainer.getInstance();
 		productCon.addProduct(product);
+		productCon.addProduct(product2);
 	}
 	
 	@Test
@@ -65,6 +67,50 @@ class SaleTester {
 		Sale s = saleController.registerSale(employee);
 		assertTrue(s != null);
 	}
+	
+	@Test
+	void employeeAssociatedWithSale() {
+		Sale s = saleController.registerSale(employee);
+		assertTrue(employee != null);
+		assertTrue(employee.getPhoneNumber() == employee.getPhoneNumber());
+	}
+	
+	@Test
+	void orderlineAssociationWithSaleUsingBarcode() {
+		Sale s = saleController.registerSale(employee);
+		Product p = saleController.identifyProduct(BARCODE, null);
+		assertTrue(s.findOrderline(p) != null);
+	}
+	
+	@Test
+	void productAssociationWithSaleUsingBarcode() {
+		Sale s = saleController.registerSale(employee);
+		Product p = saleController.identifyProduct(BARCODE, null);
+		assertEquals(s.findOrderline(p).getProducts().get(0), p);
+	}
+	
+	@Test
+	void OrderlineAssociationWithSaleUsingName() {
+		Sale s = saleController.registerSale(employee);
+		Product p = saleController.identifyProduct(null, PRODUCTNAME);
+		assertEquals(s.findOrderline(p).getProducts().get(0), p);
+	}
+	
+	@Test
+	void productAssociationWithSaleUsingName() {
+		Sale s = saleController.registerSale(employee);
+		Product p = saleController.identifyProduct(null, PRODUCTNAME);
+		assertEquals(s.findOrderline(p).getProducts().get(0), p);
+	}
+	
+	 @Test
+	 void orderlineIncrementQuantityWithProduct() {
+		 Sale s = saleController.registerSale(employee);
+		 Product p1 = saleController.identifyProduct(BARCODE, null);
+		 Product p2 = saleController.identifyProduct(null, PRODUCTNAME);
+		 Product p3 = saleController.identifyProduct(BARCODE, null);
+		 assertTrue(s.getOrderLineList().get(0).getQuantity() == 3);
+	 }
 	
 	@Test
 	void customerAssociatedWithSale() {
@@ -80,7 +126,7 @@ class SaleTester {
 		Product p = saleController.identifyProduct(BARCODE, null);
 		Customer c = saleController.findCustomerByPhone(PHONE);
 		saleController.insertPincode(PINCODE);
-		
+
 		assertTrue(saleController.paymentByAccount());
 	}
 	
@@ -93,5 +139,55 @@ class SaleTester {
 	
 		assertFalse(saleController.paymentByAccount());
 	}
+	
+	@Test
+	void saleAssociationWithID() {
+		Sale s = saleController.registerSale(employee);
+		Product p = saleController.identifyProduct(null, PRODUCTNAME);
+		Customer c = saleController.findCustomerByPhone(PHONE);
+		saleController.insertPincode(PINCODE);
+		saleController.paymentByAccount();
+		assertEquals(s.getSaleNumber(), "01");
+	}
+	
+	@Test
+	void productPriceAssociatedWithSale() {
+		Sale s = saleController.registerSale(employee);
+		Product p = saleController.identifyProduct(BARCODE, null);
+		assertTrue(s.getTotalPrice() == p.getTotalProductPrice());
+	}
+	
+	@Test
+	void salePriceAssociationWithCustomer() {
+		Sale s = saleController.registerSale(employee);
+		Product p = saleController.identifyProduct(null, PRODUCTNAME);
+		Customer c = saleController.findCustomerByPhone(PHONE);
+		saleController.insertPincode(PINCODE);
+		assertTrue(s.getTotalPrice() != p.getTotalProductPrice() && s.getTotalPrice() > 0);
+	}
+	
+	@Test
+	void detectInvalidProductInput() {
+		Sale s = saleController.registerSale(employee);
+		Product p1 = saleController.identifyProduct(null, null);
+		Product p2 = saleController.identifyProduct("Test", null);
+		Product p3 = saleController.identifyProduct(null, "slik");
+		assertNull(p1);
+		assertNull(p2);
+		assertNull(p3);
+	}
 
+	@Test
+	void multipleProductOrders() {
+		Sale newSale = saleController.registerSale(employee);
+		Product p1 = saleController.identifyProduct(null, PRODUCTNAME);
+		Product p3 = saleController.identifyProduct(null, "MaskineTester");
+		Product p2 = saleController.identifyProduct(BARCODE, null);
+		for(int i = 0; i < newSale.getOrderLineList().size(); i++) {
+			for(Product p : newSale.getOrderLineList().get(i).getProducts()) {
+				System.out.println(p.getName());
+			}
+		}
+		assertTrue(newSale.getOrderLineList().size() == 2);
+	}
 }

@@ -31,11 +31,12 @@ public class OrderLine {
 	}
 	
 	public void removeProduct(int quantity) {
-		if(!(quantity > products.size())) {
-			for(int i = 0; i < quantity; i++)
-				products.remove(i);
-			}
+		if(quantity > products.size()) { return; }
+		
+		for(int i = 0; i < quantity; i++) {
+			products.remove(i);
 		}
+	}
 		
 
 }

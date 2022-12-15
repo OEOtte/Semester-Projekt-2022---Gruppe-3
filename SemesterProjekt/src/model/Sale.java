@@ -14,9 +14,10 @@ public class Sale {
 	private Customer customer;
 	private double totalVAT;
 	private double totalPrice;
-	private ArrayList<OrderLine> ol = new ArrayList<>();
+	private ArrayList<OrderLine> ol;
 	
 	public Sale(Staff employee) {
+		ol = new ArrayList<>();
 		this.employee = employee;
 		totalPrice = 0;
 		totalVAT = 0;
@@ -24,16 +25,22 @@ public class Sale {
 	}
 	
 	public OrderLine findOrderline(Product p) {
-		if (ol == null) {
+		OrderLine helper = null;
+		if (ol.size() == 0) {
 			return null;
 		}
-		for (int i = 0; i < ol.size(); i++) {
-			ArrayList<Product> temp = ol.get(i).getProducts();
-			if (temp.get(i).equals(p)) {				
-				return ol.get(i);
+		boolean found = false;
+		for (int i = 0; i < ol.size() && !found; i++) {
+			ArrayList<Product> products = ol.get(i).getProducts();
+			if (products.get(0).getBarcode().equals(p.getBarcode())) {				
+				helper = ol.get(i);
+				found = true;
 			}
 		}
-		return null;
+		return helper;
+	}
+	public ArrayList<OrderLine> getOrderLineList() {
+		return ol;
 	}
 	
 	public void addOrderLine(OrderLine o) {
@@ -113,4 +120,14 @@ public class Sale {
 	public String getSaleNumber() {
 		return saleNumber;
 	}
+//	public double getPriceOfDiscount() {
+//		double res = 0;
+//		for (int i = 0; i < ol.size(); i++) {
+//			ArrayList<Product> temp = ol.get(i).getProducts();
+//			for (int j = 0; j < temp.size(); i++) {
+//				res += temp.get(j).getTotalProductPrice();
+//			}
+//		}
+//		return res - totalPrice;
+//	}
 }

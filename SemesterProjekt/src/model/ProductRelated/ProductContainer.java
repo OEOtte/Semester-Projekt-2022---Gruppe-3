@@ -21,7 +21,7 @@ public class ProductContainer {
 	public Product getProductByName(String name) {
 		Product product = null;
 		for(int i = 0; i < list.size(); i++) {
-			if(list.get(i).getName() == name) {
+			if(list.get(i).getName().equals(name)) {
 				product = list.get(i);
 				i = list.size();
 			}
@@ -32,7 +32,7 @@ public class ProductContainer {
 	public Product getProductByBarcode(String barcode) {
 		Product product = null;
 		for(int i = 0; i < list.size(); i++) {
-			if(list.get(i).getBarcode() == barcode) {
+			if(list.get(i).getBarcode().equals(barcode)) {
 				product = list.get(i);
 				i = list.size();
 			}

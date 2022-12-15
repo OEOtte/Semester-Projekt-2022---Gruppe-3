@@ -1,66 +1,232 @@
 package tui;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
+import controller.CustomerController;
+import controller.ProductController;
 import controller.SaleController;
+import controller.StaffController;
+import model.OrderLine;
 import model.Sale;
 import model.CustomerRelated.Customer;
+import model.ProductRelated.Product;
+import model.StaffRelated.Staff;
 
 public class Tui {
 	
 	private SaleController sCtrl;
 	private Scanner scanner;
-
+	private StaffController sc;
+	private ProductController pc;
+	private CustomerController cc;
+	private Staff em1;
+	private Staff em2;
 	
 	public Tui (){
-	
-	sCtrl = new SaleController();
-	scanner = new Scanner(System.in);
-	
+		pc = new ProductController();
+		cc = new CustomerController();
+		sc = new StaffController();
+		sCtrl = new SaleController();
+		scanner = new Scanner(System.in);
+		Staff em1 = sc.findStaffByName("Paul");
+		Staff em2 = sc.findStaffByName("KongenAfDanmark");
 	}
 	
 	public void start() {
-	System.out.println("Vestbjerg byggecenter sale system");
-	boolean goon = true;
-	while(goon) {
-	System.out.println("Create sale(s)");
-	String input = scanner.nextLine().toLowerCase();
-	switch(input) {
-	case "s":
-	createSale();
-	break;
-	case "x":
-	exit();
-	goon = false;
-	break;
-	default:
-	System.out.println("I dont understand"+ input + "please try again");
-
-	
-	}
-	
-	}
-	
-	}
-
-	private void createSale() {
-		Sale newSale = sCtrl.registerSale(null);
-		sCtrl.identifyProduct(null, null);
-		Customer c = sCtrl.findCustomerByPhone("23432");
-		if (c != null) {			
-			sCtrl.insertPincode("1234");
-			sCtrl.paymentByAccount();
+		System.out.println("Vestbjerg byggecenter system");
+		boolean goon = true;
+		while(goon) {
+			System.out.println("DIY centeret (d), TIMBER centeret (t), exit (x)");
+			String input = scanner.nextLine().toLowerCase();
+			switch(input) {
+				case "d":
+					diyCenter();
+					break;
+				case "t":
+					timberCenter();
+					break;
+				case "x":
+					exit();
+					goon = false;
+					break;
+				default:
+				System.out.println("I dont understand"+ input + "please try again");
+			}
 		}
-		System.out.println("Perfectly executed");
-		
-		
 	}
 	
 	
 
+	private void diyCenter() {
+		System.out.println();
+		System.out.println("Paul er din expedient");
+		System.out.println("     Opret en ny Ordre (1)");
+		System.out.println("     Gå tilbage (2)");
+		String input = scanner.nextLine();
+		switch(input) {
+		case "1":
+			createDIYSale(em1);
+			break;
+		case "2":
+			System.out.println();
+			break;
+		default:
+			System.out.println("Please enter either '1' or '2'");
+		}
+	}
+
+	private void createDIYSale(Staff employee) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private void timberCenter() {
+		System.out.println("KongenAfDanmark er din expedient");
+		System.out.println("     Opret en ny Ordre (1)");
+		System.out.println("     Gå tilbage (2)");
+		String input = scanner.nextLine();
+		switch(input) {
+		case "1":
+			createTimberSale(em2);
+			break;
+		case "2":
+			System.out.println();
+			break;
+		default:
+			System.out.println("Please enter either '1' or '2'");
+		}
+	}
+
+	private void createTimberSale(Staff employee) {
+		Sale newSale = sCtrl.registerSale(employee);
+		addProducts();
+		
+		System.out.println("Har du en konto ? (ja), (nej)");
+		String input = scanner.nextLine();
+		switch (input) {
+			case "ja":
+				Customer c = findCustomer();
+				boolean found = confirmAccount(c);
+				while (!found) {
+					found = confirmAccount(c);
+					if (!found) {System.out.println("Forkert pinkode... prøv igen");}
+				}
+				break;
+			case "nej":
+				System.out.println("Metode ikke implementeret");
+				break;
+			default:
+				System.out.println("Kan kun tage imod 'ja' eller 'nej'");
+		}
+		System.out.println("Din konto er nu tilføjet til salget");
+		System.out.println();
+		System.out.println("Vil du betale med din konto? (ja), (nej)");
+		String input2 = scanner.next();
+		switch(input2) {
+			case "ja":
+				boolean success = sCtrl.paymentByAccount();
+				if (!success) {System.out.println("Not enough credits");}
+			break;
+			case "nej":
+				System.out.println("Metode ikke implemeneteret");
+			break;
+			default:
+				System.out.println("Kan kun tage imod 'ja' eller 'nej'");
+		}
+		System.out.println();
+		System.out.println("Tak for at handle os Vestergaard byggecenter!");
+		printOrder(newSale);
+	}
+
+	private void addProducts() {
+		Product p = null;
+		while (p == null) {
+			p = timberSale();
+			if (p == null) { System.out.println("Det du indtastede findes ikke... Prøv igen"); }
+		}
+		System.out.println(p.getName() + " Blev tilføjet til salget");
+		System.out.println();
+		System.out.println("Vil du tilføje flere produkter? (ja), (nej)");
+		String input = scanner.nextLine();
+		switch (input) {
+			case "ja":
+				addProducts();
+				break;
+			case "nej":
+			break;
+			default:
+				System.out.println("Kan kun tage imod 'ja' eller 'nej'");
+		}
+		
+	}
+
+	private boolean confirmAccount(Customer c) {
+		System.out.println();
+		System.out.print("Indtast pinkode: ");
+		String input = scanner.nextLine();
+		return sCtrl.insertPincode(input);
+	}
+
+	private Customer findCustomer() {
+		Customer c = null;
+		while (c == null) {
+			c = findByNumber();
+			if (c == null ) {System.out.println("Ingen kontoer har det nummer... prøv igen");}
+		}
+		return c;
+	}
+
+	private Customer findByNumber() {
+		System.out.println();
+		System.out.print("Indtast telefonnummer: ");
+		String input = scanner.nextLine();
+		Customer helper = cc.findCustomerByPhone(input);
+		if (helper == null) {
+			return null;
+		}
+		Customer c = sCtrl.findCustomerByPhone(input);
+		return c;
+	}
+
+	private Product timberSale() {
+		System.out.print("Søg efter produkt: ");
+		String input = scanner.nextLine();
+		input.toLowerCase();
+		Product helper = pc.identifyProduct(null, input);
+		if (helper == null) {
+			return null;
+		}
+		Product p = sCtrl.identifyProduct(null, input);
+		return p;
+	}
+	
+	private void printOrder(Sale newSale) {
+		System.out.println();
+		System.out.println("Product Name  |  Quantity   |   Price");
+		for (int i = 0; i < newSale.getOrderLineList().size(); i++) {
+			System.out.println("____________________________________________");
+			String temp = newSale.getOrderLineList().get(i).getProducts().get(0).getName();
+			int quantity = newSale.getOrderLineList().get(i).getQuantity();
+			System.out.println("   " + temp + "          " + quantity + "           " + newSale.getOrderLineList().get(i).getProducts().get(0).getTotalProductPrice());
+		}
+		int discount = 0;
+		String temp = "";
+		for (int i = 1; i <= 3; i++) {
+			temp = "group " + i;
+			if (temp.equals(newSale.getCustomer().getGroup())) {
+				discount = Integer.parseInt(i + "" + 0);
+			}
+		}
+		System.out.println("____________________________________________");
+		System.out.println("   Rabat: " + discount + "%" + "                    " + "sparet penge");
+		System.out.println("____________________________________________");
+		System.out.println("                           Total pris: " + newSale.getTotalPrice());
+		System.out.println("                           Moms: " + newSale.getTotalVAT());
+		System.out.println();
+	}
+	
 	private void exit() {
-		System.out.println("Closing system");
-			
-		}
-
+		System.out.println("Thanks for using Vestbjerg byggecenter sale system!");
+	}
 }
