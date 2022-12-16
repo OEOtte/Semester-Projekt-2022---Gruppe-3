@@ -174,8 +174,7 @@ class SaleTester {
 		Sale s = saleController.registerSale(employee);
 		Product p1 = saleController.identifyProduct(null, null);
 		Product p2 = saleController.identifyProduct("Test", null);
-		Product p3 = saleController.identifyProduct(null, "slik");
-		assertNull(p1);
+		Product p3 = saleController.identifyProduct(null, "slik"); 
 		assertNull(p2);
 		assertNull(p3);
 	}

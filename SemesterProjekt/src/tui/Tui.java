@@ -130,6 +130,7 @@ public class Tui {
 	   * Method also adds products & an account by the user
 	   */
 	private void createTimberSale(Staff employee) {
+		boolean found = false;
 		Sale newSale = sCtrl.registerSale(employee);
 		addProducts();
 		System.out.println("Har du en konto ? (ja), (nej)");
@@ -137,40 +138,42 @@ public class Tui {
 		switch (input) {
 			case "ja":
 				Customer c = findCustomer();
-				boolean found = confirmAccount(c);
+				found = confirmAccount(c);
 				while (!found) {
 					found = confirmAccount(c);
 					if (!found) {System.out.println("Forkert pinkode... prøv igen");}
 				}
 				break;
 			case "nej":
-				System.out.println("Metode ikke implementeret");
+				System.out.println("Du kan desværre ikke foretag køb uden en konto");
 				break;
 			default:
 				System.out.println("Kan kun tage imod 'ja' eller 'nej'");
 		}
-		boolean success = false;
-		System.out.println("Din konto er nu tilføjet til salget");
-		System.out.println();
-		System.out.println("Vil du betale med din konto? (ja), (nej)");
-		String input2 = scanner.next();
-		switch(input2) {
-			case "ja":
-				success = sCtrl.paymentByAccount();
-				if (!success) {System.out.println("Ikke nok kredit på kontoen");}
-			break;
-			case "nej":
-				System.out.println("Metode ikke implemeneteret");
-			break;
-			default:
-				System.out.println("Kan kun tage imod 'ja' eller 'nej'");
-		}
-		if (success) {
+		if (found) {
+			boolean success = false;
+			System.out.println("Din konto er nu tilføjet til salget");
 			System.out.println();
-			System.out.println("Tak for at handle hos Vestbjerg byggecenter!");
-			printOrder(newSale);
-		} else {
-			System.out.println("Der er " + newSale.getTotalPrice() + "kr resterende på salget");
+			System.out.println("Vil du betale med din konto? (ja), (nej)");
+			String input2 = scanner.next();
+			switch(input2) {
+				case "ja":
+					success = sCtrl.paymentByAccount();
+					if (!success) {System.out.println("Ikke nok kredit på kontoen");}
+				break;
+				case "nej":
+					System.out.println("Metode ikke implemeneteret");
+				break;
+				default:
+					System.out.println("Kan kun tage imod 'ja' eller 'nej'");
+			}
+			if (success) {
+				System.out.println();
+				System.out.println("Tak for at handle hos Vestbjerg byggecenter!");
+				printOrder(newSale);
+			} else {
+				System.out.println("Der er " + newSale.getTotalPrice() + "kr resterende på salget");
+			}
 		}
 	}
 	/**
