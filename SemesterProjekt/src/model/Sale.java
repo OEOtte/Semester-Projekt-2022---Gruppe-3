@@ -91,6 +91,11 @@ public class Sale {
 		updateVAT(totalPrice);
 	}
 	
+	/**
+	   * This method is used to instantiate a new <code>Sale</code>
+	   * @param employee This is used to associate an <code>Staff</code> to the <code>Sale</code>
+	   * @return newSale This returns an instance of <code>Sale</code>.
+	   */
 	private void updatePrice(double x) {
 		for(int i = 0; i < ol.size(); i++) {
 			ArrayList<Product> products = ol.get(i).getProducts();
