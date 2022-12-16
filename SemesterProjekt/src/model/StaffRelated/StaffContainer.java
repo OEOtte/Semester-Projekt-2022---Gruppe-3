@@ -24,6 +24,13 @@ public class StaffContainer {
 		sl.add(s);
 	}
 	
+//	 * This method is used to find an instance of <code>Staff</code>
+//	   * @param phone This is used to iterate trough all the instanciated Staffs
+//	   * to find the desired <code>Staff</code>
+//	   * instance
+//	   * @return c This returns an instance of <code>Staff</code>.
+//	   */
+	
 	public Staff findStaffByName(String name) {
 		Staff s = null;
 		for(int i = 0; i < sl.size(); i++) {

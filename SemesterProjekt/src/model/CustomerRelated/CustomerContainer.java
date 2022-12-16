@@ -19,6 +19,13 @@ public class CustomerContainer {
 	private CustomerContainer() {
 		list = new ArrayList<>();
 	}
+	/**
+	   * This method is used to find an instance of <code>Customer</code>
+	   * @param phone This is used to iterate trough all the instanciated customers
+	   * to find the desired <code>Customer</code>
+	   * instance
+	   * @return c This returns an instance of <code>Customer</code>.
+	   */
 	
 	public Customer findCustomerbyPhone(String phone) {
 		Customer customer = null;

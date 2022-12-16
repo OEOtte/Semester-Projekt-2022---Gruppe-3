@@ -20,6 +20,12 @@ public class ProductContainer {
 	private ProductContainer() {
 		list = new ArrayList<>();
 	}
+//	 * This method is used to find an instance of <code>Product</code> by name
+//	   * @param phone This is used to iterate trough all the instanciated products
+//	   * to find the desired <code>product</code>
+//	   * instance
+//	   * @return c This returns an instance of <code>product</code>.
+//	   */
 	
 	public Product getProductByName(String name) {
 		Product product = null;
@@ -31,6 +37,13 @@ public class ProductContainer {
 		}
 		return product;
 	}
+	
+//	 * This method is used to find an instance of <code>Product</code> by barcode
+//	   * @param phone This is used to iterate trough all the instanciated products
+//	   * to find the desired <code>product</code>
+//	   * instance
+//	   * @return c This returns an instance of <code>product</code>.
+//	   */
 	
 	public Product getProductByBarcode(String barcode) {
 		Product product = null;
