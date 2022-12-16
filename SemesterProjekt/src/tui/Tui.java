@@ -212,6 +212,7 @@ public class Tui {
 	}
 	
 	private void printOrder(Sale newSale) {
+		double totalPrice = 0;
 		System.out.println();
 		System.out.println("Produkt navn  |  Antal   |   Pris inkl moms  |    Moms");
 		for (int i = 0; i < newSale.getOrderLineList().size(); i++) {
@@ -232,10 +233,11 @@ public class Tui {
 			double totalMoms = 0;
 			ArrayList<Product> helper = newSale.getOrderLineList().get(i).getProducts();
 			for (int j = 0; j < helper.size(); j++) {
-				totalMoms += helper.get(i).getVat();
+				totalMoms += helper.get(j).getVat();
 			}
 			System.out.println("   " + temp + space + quantity + "           " + newSale.getOrderLineList().get(i).getPriceOfEveryProduct() + 
 					"             " + totalMoms);
+			totalPrice = newSale.getOrderLineList().get(i).getPriceOfEveryProduct();
 		}
 		int discount = 0;
 		String temp = "";
@@ -248,7 +250,7 @@ public class Tui {
 		System.out.println("_________________________________________________________");
 		System.out.println("   Rabat: " + discount + "%" + "                    " + newSale.getMoneySaved());
 		System.out.println("_________________________________________________________");
-		System.out.println("                                   Total pris: " + newSale.getTotalPrice());
+		System.out.println("                                   Total pris: " + (totalPrice - newSale.getMoneySaved()));
 		System.out.println("                                   Salgsnummer: " + newSale.getSaleNumber());
 		System.out.println();
 	}
