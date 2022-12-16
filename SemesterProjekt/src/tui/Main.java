@@ -17,6 +17,8 @@ public class Main {
 		tui.start();
 	}
 	
+//	 * This method is used to create test data for our TUI.
+	
 	public static void writeData() {
 	CustomerContainer cc = CustomerContainer.getInstance();
 	ProductContainer pc = ProductContainer.getInstance();
