@@ -129,13 +129,14 @@ public class Tui {
 			default:
 				System.out.println("Kan kun tage imod 'ja' eller 'nej'");
 		}
+		boolean success = false;
 		System.out.println("Din konto er nu tilføjet til salget");
 		System.out.println();
 		System.out.println("Vil du betale med din konto? (ja), (nej)");
 		String input2 = scanner.next();
 		switch(input2) {
 			case "ja":
-				boolean success = sCtrl.paymentByAccount();
+				success = sCtrl.paymentByAccount();
 				if (!success) {System.out.println("Ikke nok kredit på kontoen");}
 			break;
 			case "nej":
@@ -144,9 +145,13 @@ public class Tui {
 			default:
 				System.out.println("Kan kun tage imod 'ja' eller 'nej'");
 		}
-		System.out.println();
-		System.out.println("Tak for at handle hos Vestbjerg byggecenter!");
-		printOrder(newSale);
+		if (success) {
+			System.out.println();
+			System.out.println("Tak for at handle hos Vestbjerg byggecenter!");
+			printOrder(newSale);
+		} else {
+			System.out.println("Der er " + newSale.getTotalPrice() + "kr resterende på salget");
+		}
 	}
 
 	private void addProducts() {
@@ -212,32 +217,30 @@ public class Tui {
 	}
 	
 	private void printOrder(Sale newSale) {
-		double totalPrice = 0;
 		System.out.println();
 		System.out.println("Produkt navn  |  Antal   |   Pris inkl moms  |    Moms");
 		for (int i = 0; i < newSale.getOrderLineList().size(); i++) {
 			System.out.println("_________________________________________________________");
-			String temp = newSale.getOrderLineList().get(i).getProducts().get(0).getName();
+			String pName = newSale.getOrderLineList().get(i).getProducts().get(0).getName();
 			int quantity = newSale.getOrderLineList().get(i).getQuantity();
 			String space = "          ";
 			StringBuilder sb = new StringBuilder(space);
-			if (temp.length() >= 14) {
+			if (pName.length() >= 14) {
 				space = "   ";
 			}
-			while(temp.length() > 7 && temp.length() < 14) {
+			while(pName.length() > 7 && sb.length() != 0) {
 				sb.deleteCharAt(0);
 			}
-			while (temp.length() < 7) {
-				temp += " ";
+			while (pName.length() < 7) {
+				pName += " ";
 			}
 			double totalMoms = 0;
 			ArrayList<Product> helper = newSale.getOrderLineList().get(i).getProducts();
 			for (int j = 0; j < helper.size(); j++) {
 				totalMoms += helper.get(j).getVat();
 			}
-			System.out.println("   " + temp + space + quantity + "           " + newSale.getOrderLineList().get(i).getPriceOfEveryProduct() + 
+			System.out.println("   " + pName + space + quantity + "           " + newSale.getOrderLineList().get(i).getPriceOfEveryProduct() + 
 					"             " + totalMoms);
-			totalPrice = newSale.getOrderLineList().get(i).getPriceOfEveryProduct();
 		}
 		int discount = 0;
 		String temp = "";
@@ -250,7 +253,7 @@ public class Tui {
 		System.out.println("_________________________________________________________");
 		System.out.println("   Rabat: " + discount + "%" + "                    " + newSale.getMoneySaved());
 		System.out.println("_________________________________________________________");
-		System.out.println("                                   Total pris: " + (totalPrice - newSale.getMoneySaved()));
+		System.out.println("                                   Total pris: " + newSale.getTotalPrice());
 		System.out.println("                                   Salgsnummer: " + newSale.getSaleNumber());
 		System.out.println();
 	}
