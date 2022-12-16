@@ -73,7 +73,7 @@ public class Sale {
 	}
 	
 	/**
-	   * This method is used to calculate the total price of <code>Sale.ol</code>
+	   * This method is used to update the total price of <code>Sale.ol</code>
 	   * using <code>Customer</code> c's group discount
 	   */
 	public void updatePrice(Customer c) {
@@ -92,9 +92,8 @@ public class Sale {
 	}
 	
 	/**
-	   * This method is used to instantiate a new <code>Sale</code>
-	   * @param employee This is used to associate an <code>Staff</code> to the <code>Sale</code>
-	   * @return newSale This returns an instance of <code>Sale</code>.
+	   * This method is used to update the discounted price of <code>Product</code>
+	   * @param x This is used to increment the discount calcutlated in <code>Sale.updatePrice(Customer c)</code>
 	   */
 	private void updatePrice(double x) {
 		for(int i = 0; i < ol.size(); i++) {
@@ -105,10 +104,19 @@ public class Sale {
 			}
 		}
 	}
+	/**
+	   * This method is used to update the totalPrice for <code>Sale</code>
+	   * @param p This is used to get the <code>Products</code> methods 
+	   * to update the new total price
+	   */
 	public void updatePrice(Product p) {
 		totalPrice += (p.getPrice() + p.getVat());
 	}
-
+	
+	/**
+	   * This method is used to update the finalVat on <code>Product</code>
+	   * @param x This is used to update vat to the discounted price on <code>Product</code>
+	   */
 	public void updateVAT(double x) {
 		for(int i = 0; i < ol.size(); i++) {
 			ArrayList<Product> products = ol.get(i).getProducts();
@@ -172,7 +180,10 @@ public class Sale {
 	public String getSaleNumber() {
 		return saleNumber;
 	}
-	
+	/**
+	   * This method is used to get how much money you saved on <code>Sale</code>
+	   * @return moneySaved This returns a double with the total amount of money you saved
+	   */
 	public double getPriceOfDiscount() {
 		double price = 0;
 		price = getTotalPrice();
