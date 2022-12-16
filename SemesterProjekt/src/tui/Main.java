@@ -32,11 +32,11 @@ public class Main {
 	cc.addCustomer(customer2);
 	cc.addCustomer(customer3);
 	cc.addCustomer(customer4);
-	Product p1 = new Product("kost", "Rød og stor", "Haveredskaber", "0123", "DIY Vestbjerg", 100.0, 10, 100);
+	Product p1 = new Product("kost", "Rød og stor", "Haveredskaber", "0123", "TIMBER Vestbjerg", 100.0, 10, 100);
 	Product p2 = new Product("planker", "birk, 2x4 meter", "Træ produkt", "0999", "TIMBER Vestbjerg", 100.0, 5, 50);
-	Product p3 = new Product("tvangs blander", "Grå, 10x20 meter", "Udlejnings redskab", "0420", "TIMBER Vestbjerg", 1000.0, 1, 5);
-	Product p4 = new Product("boremaskine", "Guld, batteri", "Håndredskab", "0321", "DIY Vestbjerg", 500.0, 5, 75);
-	Product p5 = new Product("saks", "Rød", "Håndredskab", "0666", "DIY Vestbjerg", 50.0, 10, 1000);
+	Product p3 = new Product("gravko", "maskine, 3x4 meter", "Maskine produkt", "0499", "TIMBER Vestbjerg", 1000.0, 5, 50);
+	Product p4 = new Product("hammer", "Guld", "Håndredskab", "0321", "TIMBER Vestbjerg", 500.0, 5, 75);
+	Product p5 = new Product("saks", "Rød", "Håndredskab", "0666", "TIMBER Vestbjerg", 50.0, 10, 1000);
 	pc.addProduct(p1);
 	pc.addProduct(p2);
 	pc.addProduct(p3);
