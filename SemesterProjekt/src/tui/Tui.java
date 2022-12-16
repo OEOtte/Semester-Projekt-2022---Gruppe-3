@@ -26,6 +26,9 @@ public class Tui {
 	private Staff em1;
 	private Staff em2;
 	
+	/**
+	   * This method is used to instantiate a new <code>Tui</code>
+	   */
 	public Tui (){
 		pc = new ProductController();
 		cc = new CustomerController();
@@ -36,6 +39,9 @@ public class Tui {
 		em2 = sc.findStaffByName("Blicher");
 	}
 	
+	/**
+	   * This method is used to start the whole system
+	   */
 	public void start() {
 		System.out.println("Vestbjerg byggecenter system");
 		boolean goon = true;
@@ -68,7 +74,10 @@ public class Tui {
 	}
 	
 	
-
+	/**
+	   * This method is used to ask the user if they would like
+	   * to create a new DIY <code>Sale</code>
+	   */
 	private void diyCenter() {
 		System.out.println();
 		System.out.println("Paul er din expedient");
@@ -86,12 +95,17 @@ public class Tui {
 			System.out.println("Kan kun tage imod '1' eller '2'");
 		}
 	}
-
+	/**
+	   * This method is used to create a <code>Sale</code>
+	   */
 	private void createDIYSale(Staff employee) {
-		// TODO Auto-generated method stub
+		// TODO add functionality
 		
 	}
-
+	/**
+	   * This method is used to ask the user if they would like
+	   * to create a new Timber <code>Sale</code>
+	   */
 	private void timberCenter() {
 		System.out.println("Blicher er din expedient");
 		System.out.println("     Opret en ny Ordre (1)");
@@ -108,7 +122,13 @@ public class Tui {
 			System.out.println("Kan kun tage imod '1' eller '2'");
 		}
 	}
-
+	
+	/**
+	   * This method is used to get the create a new instance of <code>Sale</code>
+	   * @param employee This is used to associate an <code>Staff</code> member
+	   * to the <code>Sale</code>
+	   * Method also adds products & an account by the user
+	   */
 	private void createTimberSale(Staff employee) {
 		Sale newSale = sCtrl.registerSale(employee);
 		addProducts();
@@ -153,7 +173,9 @@ public class Tui {
 			System.out.println("Der er " + newSale.getTotalPrice() + "kr resterende på salget");
 		}
 	}
-
+	/**
+	   * This method is used to add a <code>Product</code> to <code>Sale</code>
+	   */
 	private void addProducts() {
 		Product p = null;
 		while (p == null) {
@@ -175,7 +197,10 @@ public class Tui {
 		}
 		
 	}
-
+	/**
+	   * This method is used to verify the user's <code>Customer</code> account
+	   * @return This returns a <code>boolean</code> 
+	   */
 	private boolean confirmAccount(Customer c) {
 		System.out.println();
 		System.out.print("Indtast pinkode: ");
@@ -183,6 +208,10 @@ public class Tui {
 		return sCtrl.insertPincode(input);
 	}
 
+	/**
+	   * This method is find an instance of <code>Customer</code>
+	   * @return c This returns a <code>Customer</code> 
+	   */
 	private Customer findCustomer() {
 		Customer c = null;
 		while (c == null) {
@@ -191,7 +220,10 @@ public class Tui {
 		}
 		return c;
 	}
-
+	/**
+	   * This method is used to find <code>Customer</code> by user input
+	   * @return c This returns a <code>Customer</code> 
+	   */
 	private Customer findByNumber() {
 		System.out.println();
 		System.out.print("Indtast telefonnummer: ");
@@ -204,6 +236,11 @@ public class Tui {
 		return c;
 	}
 
+	/**
+	   * This method is used to find an instance of <code>Product</code>
+	   * and then add it to <code>Sale</code>
+	   * @return p This returns a <code>Product</code> 
+	   */
 	private Product timberSale() {
 		System.out.print("Søg efter produkt: ");
 		String input = scanner.nextLine();
@@ -215,7 +252,10 @@ public class Tui {
 		Product p = sCtrl.identifyProduct(null, input);
 		return p;
 	}
-	
+	/**
+	   * This method is used print all info on the instantiated <code>Sale</code>
+	   * @param newSale This is used to gather the information
+	   */
 	private void printOrder(Sale newSale) {
 		System.out.println();
 		System.out.println("Produkt navn  |  Antal   |   Pris inkl moms  |    Moms");
@@ -257,7 +297,9 @@ public class Tui {
 		System.out.println("                                   Salgsnummer: " + newSale.getSaleNumber());
 		System.out.println();
 	}
-	
+	/**
+	   * This method is used to stop the program
+	   */
 	private void exit() {
 		System.out.println("Thanks for using Vestbjerg byggecenter sale system!");
 	}
