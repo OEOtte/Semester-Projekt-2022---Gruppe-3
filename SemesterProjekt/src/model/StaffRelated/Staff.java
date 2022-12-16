@@ -1,5 +1,8 @@
 package model.StaffRelated;
-
+/**
+ * @author Gruppe 3
+ * @version 2022-12-15
+ */
 public class Staff {
 	private String name;
 	private String phoneNumber;

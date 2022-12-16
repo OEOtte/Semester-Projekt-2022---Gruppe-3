@@ -1,5 +1,8 @@
 package model.StaffRelated;
-
+/**
+ * @author Gruppe 3
+ * @version 2022-12-15
+ */
 import java.util.ArrayList;
 
 public class StaffContainer {
@@ -24,7 +27,7 @@ public class StaffContainer {
 	public Staff findStaffByName(String name) {
 		Staff s = null;
 		for(int i = 0; i < sl.size(); i++) {
-			if(sl.get(i).getName().equals(name)) {
+			if((sl.get(i).getName()).equals(name)) {
 				s = sl.get(i);
 				i = sl.size();
 			}

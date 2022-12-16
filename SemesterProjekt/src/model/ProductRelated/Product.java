@@ -1,5 +1,8 @@
 package model.ProductRelated;
-
+/**
+ * @author Gruppe 3
+ * @version 2022-12-15
+ */
 public class Product {
 	private String name;
 	private String description;
@@ -8,6 +11,8 @@ public class Product {
 	private String locationID;
 	private double price;
 	private double vat;
+	private double finalPrice;
+	private double finalVat;
 	private int minStock;
 	private int maxStock;
 	
@@ -90,10 +95,30 @@ public class Product {
 
 
 	public double getVat() {
-		vat = Math.floor(price) / 4;
+		vat = price * 0.25;
 		return vat;
 	}
 	public double getTotalProductPrice() {
-		return price + vat;
+		return price + getVat();
+	}
+
+
+	public double getFinalVat() {
+		return finalVat;
+	}
+
+
+	public void setFinalVat(double finalVat) {
+		this.finalVat = finalVat;
+	}
+
+
+	public double getFinalPrice() {
+		return finalPrice;
+	}
+
+
+	public void setFinalPrice(double finalPrice) {
+		this.finalPrice = finalPrice;
 	}
 }

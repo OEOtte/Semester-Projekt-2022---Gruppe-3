@@ -1,5 +1,8 @@
 package model.ProductRelated;
-
+/**
+ * @author Gruppe 3
+ * @version 2022-12-15
+ */
 import java.util.ArrayList;
 
 public class ProductContainer {

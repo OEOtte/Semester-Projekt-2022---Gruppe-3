@@ -1,5 +1,8 @@
 package tui;
-
+/**
+ * @author Gruppe 3
+ * @version 2022-12-15
+ */
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -29,29 +32,37 @@ public class Tui {
 		sc = new StaffController();
 		sCtrl = new SaleController();
 		scanner = new Scanner(System.in);
-		Staff em1 = sc.findStaffByName("Paul");
-		Staff em2 = sc.findStaffByName("KongenAfDanmark");
+		em1 = sc.findStaffByName("Paul");
+		em2 = sc.findStaffByName("Blicher");
 	}
 	
 	public void start() {
 		System.out.println("Vestbjerg byggecenter system");
 		boolean goon = true;
 		while(goon) {
-			System.out.println("DIY centeret (d), TIMBER centeret (t), exit (x)");
+			System.out.println("    For DIY centeret indtast (d)");
+			System.out.println("    For TIMBER centeret indtast (t)");
+			System.out.println("    For at afslut indtast (x)");
+			System.out.println();
+			System.out.print("Indtast input her: ");
 			String input = scanner.nextLine().toLowerCase();
 			switch(input) {
 				case "d":
+					System.out.println();
 					diyCenter();
+					System.out.println("Ikke implementeret");
 					break;
 				case "t":
+					System.out.println();
 					timberCenter();
+					System.out.println();
 					break;
 				case "x":
 					exit();
 					goon = false;
 					break;
 				default:
-				System.out.println("I dont understand"+ input + "please try again");
+				System.out.println("Ugyldig input: "+ input);
 			}
 		}
 	}
@@ -72,7 +83,7 @@ public class Tui {
 			System.out.println();
 			break;
 		default:
-			System.out.println("Please enter either '1' or '2'");
+			System.out.println("Kan kun tage imod '1' eller '2'");
 		}
 	}
 
@@ -82,7 +93,7 @@ public class Tui {
 	}
 
 	private void timberCenter() {
-		System.out.println("KongenAfDanmark er din expedient");
+		System.out.println("Blicher er din expedient");
 		System.out.println("     Opret en ny Ordre (1)");
 		System.out.println("     Gå tilbage (2)");
 		String input = scanner.nextLine();
@@ -94,14 +105,13 @@ public class Tui {
 			System.out.println();
 			break;
 		default:
-			System.out.println("Please enter either '1' or '2'");
+			System.out.println("Kan kun tage imod '1' eller '2'");
 		}
 	}
 
 	private void createTimberSale(Staff employee) {
 		Sale newSale = sCtrl.registerSale(employee);
 		addProducts();
-		
 		System.out.println("Har du en konto ? (ja), (nej)");
 		String input = scanner.nextLine();
 		switch (input) {
@@ -126,7 +136,7 @@ public class Tui {
 		switch(input2) {
 			case "ja":
 				boolean success = sCtrl.paymentByAccount();
-				if (!success) {System.out.println("Not enough credits");}
+				if (!success) {System.out.println("Ikke nok kredit på kontoen");}
 			break;
 			case "nej":
 				System.out.println("Metode ikke implemeneteret");
@@ -135,7 +145,7 @@ public class Tui {
 				System.out.println("Kan kun tage imod 'ja' eller 'nej'");
 		}
 		System.out.println();
-		System.out.println("Tak for at handle os Vestergaard byggecenter!");
+		System.out.println("Tak for at handle hos Vestbjerg byggecenter!");
 		printOrder(newSale);
 	}
 
@@ -203,12 +213,29 @@ public class Tui {
 	
 	private void printOrder(Sale newSale) {
 		System.out.println();
-		System.out.println("Product Name  |  Quantity   |   Price");
+		System.out.println("Produkt navn  |  Antal   |   Pris inkl moms  |    Moms");
 		for (int i = 0; i < newSale.getOrderLineList().size(); i++) {
-			System.out.println("____________________________________________");
+			System.out.println("_________________________________________________________");
 			String temp = newSale.getOrderLineList().get(i).getProducts().get(0).getName();
 			int quantity = newSale.getOrderLineList().get(i).getQuantity();
-			System.out.println("   " + temp + "          " + quantity + "           " + newSale.getOrderLineList().get(i).getProducts().get(0).getTotalProductPrice());
+			String space = "          ";
+			StringBuilder sb = new StringBuilder(space);
+			if (temp.length() >= 14) {
+				space = "   ";
+			}
+			while(temp.length() > 7 && temp.length() < 14) {
+				sb.deleteCharAt(0);
+			}
+			while (temp.length() < 7) {
+				temp += " ";
+			}
+			double totalMoms = 0;
+			ArrayList<Product> helper = newSale.getOrderLineList().get(i).getProducts();
+			for (int j = 0; j < helper.size(); j++) {
+				totalMoms += helper.get(i).getVat();
+			}
+			System.out.println("   " + temp + space + quantity + "           " + newSale.getOrderLineList().get(i).getPriceOfEveryProduct() + 
+					"             " + totalMoms);
 		}
 		int discount = 0;
 		String temp = "";
@@ -218,11 +245,11 @@ public class Tui {
 				discount = Integer.parseInt(i + "" + 0);
 			}
 		}
-		System.out.println("____________________________________________");
-		System.out.println("   Rabat: " + discount + "%" + "                    " + "sparet penge");
-		System.out.println("____________________________________________");
-		System.out.println("                           Total pris: " + newSale.getTotalPrice());
-		System.out.println("                           Moms: " + newSale.getTotalVAT());
+		System.out.println("_________________________________________________________");
+		System.out.println("   Rabat: " + discount + "%" + "                    " + newSale.getMoneySaved());
+		System.out.println("_________________________________________________________");
+		System.out.println("                                   Total pris: " + newSale.getTotalPrice());
+		System.out.println("                                   Salgsnummer: " + newSale.getSaleNumber());
 		System.out.println();
 	}
 	

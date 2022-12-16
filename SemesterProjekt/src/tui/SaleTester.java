@@ -1,5 +1,8 @@
 package tui;
-
+/**
+ * @author Gruppe 3
+ * @version 2022-12-15
+ */
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.BeforeEach;

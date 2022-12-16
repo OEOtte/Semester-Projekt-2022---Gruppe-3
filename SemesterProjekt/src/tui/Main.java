@@ -1,6 +1,8 @@
 package tui;
-
-import model.SaleContainer;
+/**
+ * @author Gruppe 3
+ * @version 2022-12-15
+ */
 import model.CustomerRelated.Customer;
 import model.CustomerRelated.CustomerContainer;
 import model.ProductRelated.Product;
@@ -10,8 +12,8 @@ import model.StaffRelated.StaffContainer;
 
 public class Main {
 	public static void main(String[] args) {
-		Tui tui = new Tui();
 		writeData();
+		Tui tui = new Tui();
 		tui.start();
 	}
 	
@@ -39,7 +41,7 @@ public class Main {
 	pc.addProduct(p4);
 	pc.addProduct(p5);
 	Staff employee1 = new Staff("Paul", "98766666", null);
-	Staff employee2 = new Staff("KongenAfDanmark", "65243878", null);
+	Staff employee2 = new Staff("Blicher ", "65243878", null);
 	sc.addStaff(employee1);
 	sc.addStaff(employee2);
 	}

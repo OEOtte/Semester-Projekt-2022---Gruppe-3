@@ -1,5 +1,8 @@
 package model;
-
+/**
+ * @author Gruppe 3
+ * @version 2022-12-15
+ */
 import java.time.LocalDate;
 import java.util.ArrayList;
 
@@ -14,20 +17,30 @@ public class Sale {
 	private Customer customer;
 	private double totalVAT;
 	private double totalPrice;
+	private double moneySaved;
 	private ArrayList<OrderLine> ol;
-	
+	/**
+	   * This method is used to instantiate a new <code>Sale</code>
+	   * @param employee This is used to associate an instance of <code>Staff</code> 
+	   * to the new instance <code>Sale</code>
+	   */
 	public Sale(Staff employee) {
 		ol = new ArrayList<>();
 		this.employee = employee;
 		totalPrice = 0;
 		totalVAT = 0;
 		customer = null;
+		moneySaved = 0;
 	}
-	
+	/**
+	   * This method is used to find an instance of <code>OrderLine</code>
+	   * @param p This is used to find a specific instance of <code>OrderLine</code> in <code>Sale.ol</code> 
+	   * @return helper This returns an instance of <code>OrderLine</code> 
+	   */
 	public OrderLine findOrderline(Product p) {
 		OrderLine helper = null;
 		if (ol.size() == 0) {
-			return null;
+			return helper;
 		}
 		boolean found = false;
 		for (int i = 0; i < ol.size() && !found; i++) {
@@ -39,10 +52,18 @@ public class Sale {
 		}
 		return helper;
 	}
+	/**
+	   * This method is used to get an instance of <code>Sale.ol</code>
+	   * @return ol This returns an instance of <code>Sale.ol</code> 
+	   */
 	public ArrayList<OrderLine> getOrderLineList() {
 		return ol;
 	}
-	
+	/**
+	   * This method is used to add a instance of <code>OrderLine</code> to <code>Sale.ol</code>
+	   * @param o This is used to add an instance of <code>OrderLine</code>
+	   * to <code>Sale.ol</code>
+	   */
 	public void addOrderLine(OrderLine o) {
 		ol.add(o);
 	}
@@ -51,24 +72,46 @@ public class Sale {
 		this.saleNumber = saleNumber;
 	}
 	
+	/**
+	   * This method is used to calculate the total price of <code>Sale.ol</code>
+	   * using <code>Customer</code> c's group discount
+	   */
 	public void updatePrice(Customer c) {
+		double x = 0;
 		String temp = "";
 		for (int i = 1; i <= 3; i++) {
 			temp = "group " + i;
 			if (temp.equals(customer.getGroup())) {
 				String helper = "0." + i;
-				double x = Double.parseDouble(helper);
+				x = Double.parseDouble(helper);
 				totalPrice -= totalPrice*(x);
 			}
 		}
+		updatePrice(x);
+		updateVAT(totalPrice);
 	}
 	
+	private void updatePrice(double x) {
+		for(int i = 0; i < ol.size(); i++) {
+			ArrayList<Product> products = ol.get(i).getProducts();
+			for(int j = 0; j < products.size(); j++) {
+				double res = x * products.get(j).getPrice();
+				products.get(j).setFinalPrice(products.get(j).getPrice() - res);
+			}
+		}
+	}
 	public void updatePrice(Product p) {
-		totalPrice += p.getPrice() + p.getVat();
+		totalPrice += (p.getPrice() + p.getVat());
 	}
 
-	public void updateVAT(double VAT) {
-		totalVAT += VAT;
+	public void updateVAT(double x) {
+		for(int i = 0; i < ol.size(); i++) {
+			ArrayList<Product> products = ol.get(i).getProducts();
+			for(int j = 0; j < products.size(); j++) {
+				double res = x * products.get(j).getPrice();
+				products.get(j).setFinalVat(products.get(j).getPrice() - res);
+			}
+		}
 	}
 	
 	public void addCustomer(Customer customer) {
@@ -106,7 +149,11 @@ public class Sale {
 	public void setTotalPrice(double price) {
 		this.totalPrice = price;
 	}
-
+	
+	/**
+	   * This method is used to get the totalVAT of <code>Sale.ol</code>
+	   * @return totalVAT This returns a sum of every <code>Product</code> VAT
+	   */
 	public double getTotalVAT() {
 		for (int i = 0; i < ol.size(); i++) {
 			ArrayList<Product> temp = ol.get(i).getProducts();
@@ -120,14 +167,23 @@ public class Sale {
 	public String getSaleNumber() {
 		return saleNumber;
 	}
-//	public double getPriceOfDiscount() {
-//		double res = 0;
-//		for (int i = 0; i < ol.size(); i++) {
-//			ArrayList<Product> temp = ol.get(i).getProducts();
-//			for (int j = 0; j < temp.size(); i++) {
-//				res += temp.get(j).getTotalProductPrice();
-//			}
-//		}
-//		return res - totalPrice;
-//	}
+	
+	public double getPriceOfDiscount() {
+		double price = 0;
+		price = getTotalPrice();
+		String temp = "";
+		for (int i = 1; i <= 3; i++) {
+			temp = "group " + i;
+			if (temp.equals(customer.getGroup())) {
+				String helper = "0." + i;
+				double x = Double.parseDouble(helper);
+				moneySaved = price*(x);
+			}
+		}
+		return moneySaved;
+	}
+	
+	public double getMoneySaved() {
+		return moneySaved;
+	}
 }

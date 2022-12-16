@@ -1,5 +1,8 @@
 package model.CustomerRelated;
-
+/**
+ * @author Gruppe 3
+ * @version 2022-12-15
+ */
 public class Customer {
 	private String name;
 	private String phone;
@@ -17,11 +20,6 @@ public class Customer {
 		this.customerNumber = customerNumber;
 		this.group = group;
 		this.credits = credits;
-	}
-	
-	public boolean payForOrder(double price) {
-		return false;
-		
 	}
 	
 	public String getName() {

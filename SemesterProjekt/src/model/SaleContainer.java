@@ -1,4 +1,8 @@
 package model;
+/**
+ * @author Gruppe 3
+ * @version 2022-12-15
+ */
 import java.util.ArrayList;
 
 public class SaleContainer {
@@ -19,10 +23,11 @@ public class SaleContainer {
 	}
 	
 	public void addSale(Sale s) {
-		if (list.size() <= 9) {
-			s.setSaleNumber("0" + list.size()+1);
-		}
-		s.setSaleNumber("" + list.size()+1);
 		list.add(s);
+		if (list.size() <= 9) {
+			s.setSaleNumber("0" + list.size());
+		} else {
+			s.setSaleNumber("" + list.size());
+		}
 	}
 }
