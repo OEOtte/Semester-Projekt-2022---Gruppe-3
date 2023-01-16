@@ -112,6 +112,11 @@ public class TimberSale extends JDialog {
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
 				JButton btnBetalKonto = new JButton("Betal Konto");
+				btnBetalKonto.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						betalKontoClicked();
+					}
+				});
 				btnBetalKonto.setActionCommand("OK");
 				buttonPane.add(btnBetalKonto);
 				getRootPane().setDefaultButton(btnBetalKonto);
@@ -128,6 +133,13 @@ public class TimberSale extends JDialog {
 			}
 		}
 		init();
+	}
+
+	protected void betalKontoClicked() {
+		super.setVisible(false);
+		Kvittering kvittering = new Kvittering();
+		kvittering.setVisible(true);
+		
 	}
 
 	protected void findKontoClicked() {

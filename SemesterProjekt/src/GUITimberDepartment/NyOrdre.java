@@ -119,24 +119,39 @@ public class NyOrdre extends JDialog {
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
 				JButton okButton = new JButton("OK");
+				okButton.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						okClicked();
+					}
+				});
 				okButton.setActionCommand("OK");
 				buttonPane.add(okButton);
 				getRootPane().setDefaultButton(okButton);
 			}
 			{
-				JButton cancelButton = new JButton("Cancel");
+				JButton cancelButton = new JButton("Afbryd");
 				cancelButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						cancelClicked();
+						afbrydClicked();
 					}
 				});
 				cancelButton.setActionCommand("Cancel");
 				buttonPane.add(cancelButton);
 			}
 		}
+		init();
 	}
 
-	protected void cancelClicked() {
+	protected void okClicked() {
+		super.setVisible(false);
+	}
+
+	private void init() {
+		
+		
+	}
+
+	protected void afbrydClicked() {
 		super.setVisible(false);
 		super.dispose();
 	}
