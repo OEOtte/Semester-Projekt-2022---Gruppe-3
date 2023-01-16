@@ -14,6 +14,8 @@ import java.awt.GridLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import java.awt.Font;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class TimberGUI extends JFrame {
 
@@ -70,6 +72,10 @@ public class TimberGUI extends JFrame {
 		contentPane.add(panel_1, BorderLayout.SOUTH);
 		
 		JButton btnTD = new JButton("Timber");
+		btnTD.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
 		panel_1.add(btnTD);
 		
 		JButton btnDIY = new JButton("   DIY    ");
