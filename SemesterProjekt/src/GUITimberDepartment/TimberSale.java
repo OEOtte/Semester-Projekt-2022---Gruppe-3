@@ -23,7 +23,7 @@ public class TimberSale extends JDialog {
 	private final JPanel contentPanel = new JPanel();
 
 	/**
-	 * Launch the application.
+	 * Launch the timber window
 	 */
 	public static void main(String[] args) {
 		try {
@@ -56,6 +56,11 @@ public class TimberSale extends JDialog {
 			øst.setLayout(gbl_øst);
 			{
 				JButton btnNyOrdre = new JButton("Ny Ordre");
+				btnNyOrdre.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						nyOrdreClicked();
+					}
+				});
 				GridBagConstraints gbc_btnNyOrdre = new GridBagConstraints();
 				gbc_btnNyOrdre.insets = new Insets(0, 0, 5, 0);
 				gbc_btnNyOrdre.gridx = 0;
@@ -64,6 +69,11 @@ public class TimberSale extends JDialog {
 			}
 			{
 				JButton btnFindKonto = new JButton("Find Konto");
+				btnFindKonto.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						findKontoClicked();
+					}
+				});
 				GridBagConstraints gbc_btnFindKonto = new GridBagConstraints();
 				gbc_btnFindKonto.insets = new Insets(0, 0, 5, 0);
 				gbc_btnFindKonto.gridx = 0;
@@ -120,6 +130,17 @@ public class TimberSale extends JDialog {
 		init();
 	}
 
+	protected void findKontoClicked() {
+		FindKonto findKonto = new FindKonto();
+		findKonto.setVisible(true);
+	}
+
+	protected void nyOrdreClicked() {
+		NyOrdre nyOrdre = new NyOrdre();
+		nyOrdre.setVisible(true);
+		
+	}
+
 	private void init() {
 		// TODO Auto-generated method stub
 		
@@ -128,6 +149,8 @@ public class TimberSale extends JDialog {
 	protected void afbrydClicked() {
 		super.setVisible(false);
 		super.dispose();
+		GUI gui = new GUI().getFrame();
+		gui.setVisible(true);
 	}
 
 }

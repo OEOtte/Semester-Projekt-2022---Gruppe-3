@@ -125,10 +125,20 @@ public class NyOrdre extends JDialog {
 			}
 			{
 				JButton cancelButton = new JButton("Cancel");
+				cancelButton.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						cancelClicked();
+					}
+				});
 				cancelButton.setActionCommand("Cancel");
 				buttonPane.add(cancelButton);
 			}
 		}
+	}
+
+	protected void cancelClicked() {
+		super.setVisible(false);
+		super.dispose();
 	}
 
 }

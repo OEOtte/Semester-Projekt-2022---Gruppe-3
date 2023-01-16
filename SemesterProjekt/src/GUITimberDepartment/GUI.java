@@ -17,9 +17,10 @@ import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class TimberGUI extends JFrame {
+public class GUI extends JFrame {
 
 	private JPanel contentPane;
+	private static GUI frame;
 
 	/**
 	 * Launch the application.
@@ -28,7 +29,7 @@ public class TimberGUI extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					TimberGUI frame = new TimberGUI();
+					frame = new GUI();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -36,11 +37,14 @@ public class TimberGUI extends JFrame {
 			}
 		});
 	}
+	public GUI getFrame() {
+		return frame;
+	}
 
 	/**
 	 * Create the frame.
 	 */
-	public TimberGUI() {
+	public GUI() {
 		setTitle("Vestbjerg byggecenter system");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
@@ -74,12 +78,19 @@ public class TimberGUI extends JFrame {
 		JButton btnTD = new JButton("Timber");
 		btnTD.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				timberClicked();
 			}
 		});
 		panel_1.add(btnTD);
 		
 		JButton btnDIY = new JButton("   DIY    ");
 		panel_1.add(btnDIY);
+	}
+
+	protected void timberClicked() {
+		TimberSale timberSale = new TimberSale();
+		timberSale.setVisible(true);
+		frame.setVisible(false);
 	}
 
 }
