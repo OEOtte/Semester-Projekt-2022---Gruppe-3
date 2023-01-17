@@ -20,6 +20,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 import javax.swing.JList;
 import java.awt.TextArea;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class Kvittering extends JDialog {
 	private JTable table_1;
@@ -244,6 +246,7 @@ public class Kvittering extends JDialog {
 		panel_1.add(table_4, gbc_table_4);
 		
 		table_8 = new JTable();
+		table_8.setToolTipText("");
 		GridBagConstraints gbc_table_8 = new GridBagConstraints();
 		gbc_table_8.gridwidth = 3;
 		gbc_table_8.insets = new Insets(0, 0, 5, 0);
@@ -308,12 +311,23 @@ public class Kvittering extends JDialog {
 		panel_1.add(table_10, gbc_table_10);
 		
 		btnNewButton = new JButton("Godkend");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				onGodkendClicked();
+			}
+		});
 		GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
 		gbc_btnNewButton.gridwidth = 3;
 		gbc_btnNewButton.insets = new Insets(0, 0, 0, 5);
 		gbc_btnNewButton.gridx = 4;
 		gbc_btnNewButton.gridy = 9;
 		getContentPane().add(btnNewButton, gbc_btnNewButton);
+	}
+
+	protected void onGodkendClicked() {
+		GUI gui = new GUI().getFrame();
+		gui.setVisible(true);
+		super.setVisible(false);
 	}
 
 }

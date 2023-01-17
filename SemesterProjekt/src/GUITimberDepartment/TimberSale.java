@@ -3,10 +3,14 @@ package GUITimberDepartment;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import model.ProductRelated.Product;
+
 import java.awt.GridLayout;
 import javax.swing.JLabel;
 import java.awt.GridBagLayout;
@@ -16,29 +20,30 @@ import javax.swing.JScrollPane;
 import java.awt.Font;
 import javax.swing.JList;
 import java.awt.event.ActionListener;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+import java.util.ArrayList;
+import java.util.List;
 import java.awt.event.ActionEvent;
 
 public class TimberSale extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
-
-	/**
-	 * Launch the timber window
-	 */
-	public static void main(String[] args) {
-		try {
-			TimberSale dialog = new TimberSale();
-			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-			dialog.setVisible(true);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
+	private JList<Product> list;
+	private AddProduct addProduct;
+	private List<Product> products = new ArrayList<>();
+	private static TimberSale ts;
 	/**
 	 * Create the dialog.
 	 */
-	public TimberSale() {
+	public static TimberSale getTS() {
+		if (ts == null) {
+			ts = new TimberSale();
+		}
+		return ts;
+	}
+	
+	private TimberSale() {
 		setTitle("Timber salg");
 		setBounds(100, 100, 450, 300);
 		getContentPane().setLayout(new BorderLayout());
@@ -55,7 +60,7 @@ public class TimberSale extends JDialog {
 			gbl_øst.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 			øst.setLayout(gbl_øst);
 			{
-				JButton btnNyOrdre = new JButton("Ny Ordre");
+				JButton btnNyOrdre = new JButton("Tilføj Produkt");
 				btnNyOrdre.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						nyOrdreClicked();
@@ -68,7 +73,7 @@ public class TimberSale extends JDialog {
 				øst.add(btnNyOrdre, gbc_btnNyOrdre);
 			}
 			{
-				JButton btnFindKonto = new JButton("Find Konto");
+				JButton btnFindKonto = new JButton("  Find Konto  ");
 				btnFindKonto.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						findKontoClicked();
@@ -102,7 +107,7 @@ public class TimberSale extends JDialog {
 				scrollPane.setColumnHeaderView(lblNewLabel_1);
 			}
 			{
-				JList list = new JList();
+				list = new JList<>();
 				scrollPane.setViewportView(list);
 			}
 		}
@@ -148,21 +153,24 @@ public class TimberSale extends JDialog {
 	}
 
 	protected void nyOrdreClicked() {
-		NyOrdre nyOrdre = new NyOrdre();
-		nyOrdre.setVisible(true);
-		
+		addProduct = new AddProduct(list);
+		addProduct.setVisible(true);
+		super.setVisible(false);
 	}
 
 	private void init() {
-		// TODO Auto-generated method stub
-		
+		list.setCellRenderer(new ProductListCellRenderer());
 	}
 
 	protected void afbrydClicked() {
 		super.setVisible(false);
-		super.dispose();
+//		super.dispose();
 		GUI gui = new GUI().getFrame();
 		gui.setVisible(true);
 	}
-
+	
+	public void displayProducts() {
+		super.setVisible(true);
+		list = addProduct.getList();
+	}
 }

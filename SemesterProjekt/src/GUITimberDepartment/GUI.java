@@ -5,6 +5,9 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import tui.Main;
+
 import java.awt.BorderLayout;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
@@ -31,6 +34,7 @@ public class GUI extends JFrame {
 				try {
 					frame = new GUI();
 					frame.setVisible(true);
+					Main.writeData();
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -88,7 +92,7 @@ public class GUI extends JFrame {
 	}
 
 	protected void timberClicked() {
-		TimberSale timberSale = new TimberSale();
+		TimberSale timberSale = TimberSale.getTS();
 		timberSale.setVisible(true);
 		frame.setVisible(false);
 	}
