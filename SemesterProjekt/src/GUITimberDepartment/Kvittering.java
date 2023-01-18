@@ -25,6 +25,9 @@ import javax.swing.JSplitPane;
 import javax.swing.JList;
 import java.awt.TextArea;
 import java.awt.event.ActionListener;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.awt.event.ActionEvent;
 
 public class Kvittering extends JDialog {
@@ -140,6 +143,8 @@ public class Kvittering extends JDialog {
 		getContentPane().add(lblNewLabel_9, gbc_lblNewLabel_9);
 		
 		textDato = new JTextPane();
+		textDato.setEditable(false);
+		textDato.setText(LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
 		GridBagConstraints gbc_textDato = new GridBagConstraints();
 		gbc_textDato.gridwidth = 4;
 		gbc_textDato.insets = new Insets(0, 0, 5, 5);
@@ -159,6 +164,8 @@ public class Kvittering extends JDialog {
 		getContentPane().add(lblNewLabel_8, gbc_lblNewLabel_8);
 		
 		textKlok = new JTextPane();
+		textKlok.setEditable(false);
+		textKlok.setText(LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm")));
 		GridBagConstraints gbc_textKlok = new GridBagConstraints();
 		gbc_textKlok.gridwidth = 4;
 		gbc_textKlok.insets = new Insets(0, 0, 5, 5);
@@ -177,6 +184,8 @@ public class Kvittering extends JDialog {
 		getContentPane().add(lblNewLabel_10, gbc_lblNewLabel_10);
 		
 		textAssistent = new JTextPane();
+		textAssistent.setText("Paul (TIMBER)");
+		textAssistent.setEditable(false);
 		GridBagConstraints gbc_textAssistent = new GridBagConstraints();
 		gbc_textAssistent.gridwidth = 4;
 		gbc_textAssistent.insets = new Insets(0, 0, 5, 5);
@@ -209,6 +218,7 @@ public class Kvittering extends JDialog {
 		panel_1.add(lblNewLabel_6, gbc_lblNewLabel_6);
 		
 		textRabat = new JTextPane();
+		textRabat.setEditable(false);
 		GridBagConstraints gbc_textRabat = new GridBagConstraints();
 		gbc_textRabat.gridwidth = 5;
 		gbc_textRabat.insets = new Insets(0, 0, 5, 5);
@@ -241,6 +251,7 @@ public class Kvittering extends JDialog {
 		panel_1.add(lblNewLabel_4, gbc_lblNewLabel_4);
 		
 		textMoms = new JTextPane();
+		textMoms.setEditable(false);
 		GridBagConstraints gbc_textMoms = new GridBagConstraints();
 		gbc_textMoms.gridwidth = 5;
 		gbc_textMoms.insets = new Insets(0, 0, 5, 5);
@@ -265,6 +276,7 @@ public class Kvittering extends JDialog {
 		panel_1.add(lblNewLabel_7, gbc_lblNewLabel_7);
 		
 		textTotalPris = new JTextPane();
+		textTotalPris.setEditable(false);
 		GridBagConstraints gbc_textTotalPris = new GridBagConstraints();
 		gbc_textTotalPris.insets = new Insets(0, 0, 0, 5);
 		gbc_textTotalPris.gridwidth = 5;
