@@ -190,7 +190,6 @@ public class AddProduct extends JDialog {
 		txtAddTextBox.setText("Tilføjede: '" + name + (temp ? "(" + (methodCounter+1) + ")'" : "'"));
 		methodCounter++;
 		helper = name;
-		System.out.println(methodCounter);
 	}
 
 	// Finds specific product

@@ -9,6 +9,7 @@ import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import model.CustomerRelated.Customer;
 import model.ProductRelated.Product;
 
 import java.awt.GridLayout;
@@ -25,6 +26,7 @@ import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 import java.util.List;
 import java.awt.event.ActionEvent;
+import javax.swing.JTextPane;
 
 public class TimberSale extends JDialog {
 
@@ -33,6 +35,10 @@ public class TimberSale extends JDialog {
 	private AddProduct addProduct;
 	private List<Product> products = new ArrayList<>();
 	private static TimberSale ts;
+	private JTextPane textAccountNr;
+	private Customer c;
+	private JButton btnBetalKonto;
+	
 	/**
 	 * Create the dialog.
 	 */
@@ -55,9 +61,9 @@ public class TimberSale extends JDialog {
 			contentPanel.add(øst, BorderLayout.EAST);
 			GridBagLayout gbl_øst = new GridBagLayout();
 			gbl_øst.columnWidths = new int[]{0, 0};
-			gbl_øst.rowHeights = new int[]{0, 0, 0, 0, 0, 0};
-			gbl_øst.columnWeights = new double[]{0.0, Double.MIN_VALUE};
-			gbl_øst.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+			gbl_øst.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0};
+			gbl_øst.columnWeights = new double[]{1.0, Double.MIN_VALUE};
+			gbl_øst.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 1.0, 0.0, Double.MIN_VALUE};
 			øst.setLayout(gbl_øst);
 			{
 				JButton btnNyOrdre = new JButton("Tilføj Produkt");
@@ -84,6 +90,16 @@ public class TimberSale extends JDialog {
 				gbc_btnFindKonto.gridx = 0;
 				gbc_btnFindKonto.gridy = 1;
 				øst.add(btnFindKonto, gbc_btnFindKonto);
+			}
+			{
+				textAccountNr = new JTextPane();
+				textAccountNr.setEnabled(false);
+				GridBagConstraints gbc_textAccountNr = new GridBagConstraints();
+				gbc_textAccountNr.insets = new Insets(0, 0, 5, 0);
+				gbc_textAccountNr.fill = GridBagConstraints.BOTH;
+				gbc_textAccountNr.gridx = 0;
+				gbc_textAccountNr.gridy = 3;
+				øst.add(textAccountNr, gbc_textAccountNr);
 			}
 		}
 		{
@@ -116,7 +132,8 @@ public class TimberSale extends JDialog {
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
-				JButton btnBetalKonto = new JButton("Betal Konto");
+				btnBetalKonto = new JButton("Betal Konto");
+				btnBetalKonto.setEnabled(false);
 				btnBetalKonto.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						betalKontoClicked();
@@ -144,17 +161,18 @@ public class TimberSale extends JDialog {
 		super.setVisible(false);
 		Kvittering kvittering = new Kvittering();
 		kvittering.setVisible(true);
-		
+		kvittering.setInfo(c, list);
 	}
 
 	protected void findKontoClicked() {
-		FindKonto findKonto = new FindKonto();
+		FindKonto findKonto = FindKonto.getInstance();
 		findKonto.setVisible(true);
 	}
 
 	protected void nyOrdreClicked() {
 		addProduct = new AddProduct(list);
 		addProduct.setVisible(true);
+		btnBetalKonto.setEnabled(true);
 		super.setVisible(false);
 	}
 
@@ -172,5 +190,10 @@ public class TimberSale extends JDialog {
 	public void displayProducts() {
 		super.setVisible(true);
 		list = addProduct.getList();
+	}
+
+	public void setCustomer(Customer customer) {
+		textAccountNr.setText("Konto : " + customer.getName());
+		c = customer;
 	}
 }
