@@ -11,6 +11,7 @@ import javax.swing.border.EmptyBorder;
 
 import controller.ProductController;
 import model.ProductRelated.Product;
+import model.ProductRelated.ProductContainer;
 
 import java.awt.GridBagLayout;
 import javax.swing.JLabel;
@@ -20,6 +21,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JList;
 import javax.swing.JTextField;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 import java.awt.event.ActionEvent;
 import javax.swing.SwingConstants;
 
@@ -190,11 +193,11 @@ public class AddProduct extends JDialog {
 		System.out.println(methodCounter);
 	}
 
-	// Finds & Displays product
+	// Finds specific product
 	protected void søgClicked() {
-		String input = txtinputField.getText();
+		String input = txtinputField.getText().toLowerCase();
 		Product p = pc.identifyProduct(null, input);
-		DefaultListModel<Product> dlm = new DefaultListModel<>();
+		DefaultListModel<Product> dlm = new DefaultListModel<>(); 
 		if (p != null) {
 			dlm.addElement(p);
 		}
@@ -211,11 +214,16 @@ public class AddProduct extends JDialog {
 		pc = new ProductController();
 		list.setCellRenderer(new ProductListCellRenderer());
 		orderList = lst;
-//		for (DefaultListModel<Product> dlm : orderList) {
-//			dlm
-//		}
+		displayProducts();
 	}
 
+	private void displayProducts() {
+		DefaultListModel<Product> dlm = new DefaultListModel<>();
+		ProductContainer pContainer = ProductContainer.getInstance();
+		List<Product> container = pContainer.getContainerOfEveryProduct();
+		dlm.addAll(container);
+		list.setModel(dlm);
+	}
 	protected void afbrydClicked() {
 		super.setVisible(false);
 		restartTS();

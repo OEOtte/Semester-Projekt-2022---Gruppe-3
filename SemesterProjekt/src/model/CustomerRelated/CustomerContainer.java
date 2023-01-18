@@ -4,6 +4,7 @@ package model.CustomerRelated;
  * @version 2022-12-15
  */
 import java.util.ArrayList;
+import java.util.List;
 
 public class CustomerContainer {
 	private static CustomerContainer instance;
@@ -40,5 +41,8 @@ public class CustomerContainer {
 	
 	public void addCustomer(Customer c) {
 		list.add(c);
+	}
+	public List<Customer> getContainerWithEveryCustomer() {
+		return list;
 	}
 }

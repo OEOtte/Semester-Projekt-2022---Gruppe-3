@@ -3,12 +3,16 @@ package GUITimberDepartment;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import model.CustomerRelated.Customer;
+import model.CustomerRelated.CustomerContainer;
+import model.ProductRelated.Product;
+import model.ProductRelated.ProductContainer;
 
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
@@ -18,25 +22,14 @@ import javax.swing.JTextField;
 import javax.swing.JList;
 import javax.swing.JScrollPane;
 import java.awt.event.ActionListener;
+import java.util.List;
 import java.awt.event.ActionEvent;
 
 public class FindKonto extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
 	private JTextField textField;
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		try {
-			FindKonto dialog = new FindKonto();
-			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-			dialog.setVisible(true);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
+	private JList<Customer> list;
 
 	/**
 	 * Create the dialog.
@@ -135,7 +128,7 @@ public class FindKonto extends JDialog {
 				gbc_scrollPane.gridy = 0;
 				panel.add(scrollPane, gbc_scrollPane);
 				{
-					JList list = new JList();
+					list = new JList();
 					scrollPane.setViewportView(list);
 				}
 			}
@@ -166,7 +159,7 @@ public class FindKonto extends JDialog {
 				buttonPane.add(cancelButton);
 			}
 		}
-//		init(c);
+		init();
 	}
 
 	protected void okClicked() {
@@ -178,9 +171,16 @@ public class FindKonto extends JDialog {
 		super.dispose();
 	}
 
-	private void init(Customer c) {
-		
-		
+	private void init() {
+		list.setCellRenderer(new CustomerListCellRenderer());
+		displayMembers();
 	}
 
+	private void displayMembers() {
+		CustomerContainer cc = CustomerContainer.getInstance();
+		DefaultListModel<Customer> dlm = new DefaultListModel<>();
+		List<Customer> container = cc.getContainerWithEveryCustomer();
+		dlm.addAll(container);
+		list.setModel(dlm);
+	}
 }

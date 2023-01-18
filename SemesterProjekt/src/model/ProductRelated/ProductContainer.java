@@ -4,6 +4,7 @@ package model.ProductRelated;
  * @version 2022-12-15
  */
 import java.util.ArrayList;
+import java.util.List;
 
 public class ProductContainer {
 	private static ProductContainer instance;
@@ -59,5 +60,7 @@ public class ProductContainer {
 	public void addProduct(Product p) {
 		list.add(p);
 	}
-
+	public List<Product> getContainerOfEveryProduct() {
+		return list;
+	}
 }
