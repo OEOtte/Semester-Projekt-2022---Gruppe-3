@@ -55,6 +55,11 @@ public class Kvittering extends JDialog {
 	private JList listProduktNavn;
 	private JList listPrisTotal;
 	private JList listMoms;
+	private JPanel panel_2;
+	private JTextPane txtpnordre;
+	private JLabel lblNewLabel_1;
+	private JLabel lblNewLabel_11;
+	private JTextPane txtpnkontonummerlaves;
 
 	/**
 	 * Create the dialog.
@@ -62,10 +67,10 @@ public class Kvittering extends JDialog {
 	public Kvittering() {
 		setBounds(100, 100, 684, 593);
 		GridBagLayout gridBagLayout = new GridBagLayout();
-		gridBagLayout.columnWidths = new int[]{0, 224, 162, 0, 0, 0, 0, 0, 0};
-		gridBagLayout.rowHeights = new int[]{43, 32, 26, 0, 0, 27, 26, 92, 0, 29, 36, 33, 0, 0};
+		gridBagLayout.columnWidths = new int[]{14, 114, 162, 0, 0, 0, 0, 0, 0};
+		gridBagLayout.rowHeights = new int[]{43, 32, 26, 28, 32, 0, 37, 26, 37, 0, 29, 36, 33, 0, 0};
 		gridBagLayout.columnWeights = new double[]{0.0, 1.0, 1.0, 0.0, 1.0, 1.0, 0.0, 0.0, Double.MIN_VALUE};
-		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 1.0, 1.0, 1.0, 0.0, 1.0, 0.0, Double.MIN_VALUE};
+		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 1.0, 0.0, 1.0, 1.0, 1.0, 0.0, 1.0, 0.0, Double.MIN_VALUE};
 		getContentPane().setLayout(gridBagLayout);
 		
 		lblNewLabel_5 = new JLabel("Kvittering");
@@ -77,7 +82,7 @@ public class Kvittering extends JDialog {
 		
 		JPanel panel = new JPanel();
 		GridBagConstraints gbc_panel = new GridBagConstraints();
-		gbc_panel.gridheight = 11;
+		gbc_panel.gridheight = 12;
 		gbc_panel.insets = new Insets(0, 0, 5, 5);
 		gbc_panel.fill = GridBagConstraints.BOTH;
 		gbc_panel.gridx = 1;
@@ -194,6 +199,60 @@ public class Kvittering extends JDialog {
 		gbc_textAssistent.gridy = 3;
 		getContentPane().add(textAssistent, gbc_textAssistent);
 		
+		panel_2 = new JPanel();
+		GridBagConstraints gbc_panel_2 = new GridBagConstraints();
+		gbc_panel_2.gridheight = 6;
+		gbc_panel_2.gridwidth = 5;
+		gbc_panel_2.insets = new Insets(0, 0, 5, 5);
+		gbc_panel_2.fill = GridBagConstraints.BOTH;
+		gbc_panel_2.gridx = 2;
+		gbc_panel_2.gridy = 4;
+		getContentPane().add(panel_2, gbc_panel_2);
+		GridBagLayout gbl_panel_2 = new GridBagLayout();
+		gbl_panel_2.columnWidths = new int[]{0, 0, 0, 0, 81, 5, 0};
+		gbl_panel_2.rowHeights = new int[]{26, 4, 250, 0};
+		gbl_panel_2.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 6.0, Double.MIN_VALUE};
+		gbl_panel_2.rowWeights = new double[]{0.0, 1.0, 1.0, Double.MIN_VALUE};
+		panel_2.setLayout(gbl_panel_2);
+		
+		lblNewLabel_1 = new JLabel("Ordrenummer");
+		lblNewLabel_1.setVerticalAlignment(SwingConstants.TOP);
+		GridBagConstraints gbc_lblNewLabel_1 = new GridBagConstraints();
+		gbc_lblNewLabel_1.anchor = GridBagConstraints.EAST;
+		gbc_lblNewLabel_1.insets = new Insets(0, 0, 5, 5);
+		gbc_lblNewLabel_1.gridx = 4;
+		gbc_lblNewLabel_1.gridy = 0;
+		panel_2.add(lblNewLabel_1, gbc_lblNewLabel_1);
+		
+		txtpnordre = new JTextPane();
+		txtpnordre.setText("//ORDRENUMMERLAVES");
+		txtpnordre.setEditable(false);
+		GridBagConstraints gbc_txtpnordre = new GridBagConstraints();
+		gbc_txtpnordre.insets = new Insets(0, 0, 5, 0);
+		gbc_txtpnordre.fill = GridBagConstraints.BOTH;
+		gbc_txtpnordre.gridx = 5;
+		gbc_txtpnordre.gridy = 0;
+		panel_2.add(txtpnordre, gbc_txtpnordre);
+		
+		lblNewLabel_11 = new JLabel("Kontonummer");
+		lblNewLabel_11.setVerticalAlignment(SwingConstants.TOP);
+		GridBagConstraints gbc_lblNewLabel_11 = new GridBagConstraints();
+		gbc_lblNewLabel_11.anchor = GridBagConstraints.EAST;
+		gbc_lblNewLabel_11.insets = new Insets(0, 0, 5, 5);
+		gbc_lblNewLabel_11.gridx = 4;
+		gbc_lblNewLabel_11.gridy = 1;
+		panel_2.add(lblNewLabel_11, gbc_lblNewLabel_11);
+		
+		txtpnkontonummerlaves = new JTextPane();
+		txtpnkontonummerlaves.setText("//KONTONUMMERLAVES");
+		txtpnkontonummerlaves.setEditable(false);
+		GridBagConstraints gbc_txtpnkontonummerlaves = new GridBagConstraints();
+		gbc_txtpnkontonummerlaves.insets = new Insets(0, 0, 5, 0);
+		gbc_txtpnkontonummerlaves.fill = GridBagConstraints.BOTH;
+		gbc_txtpnkontonummerlaves.gridx = 5;
+		gbc_txtpnkontonummerlaves.gridy = 1;
+		panel_2.add(txtpnkontonummerlaves, gbc_txtpnkontonummerlaves);
+		
 		panel_1 = new JPanel();
 		GridBagConstraints gbc_panel_1 = new GridBagConstraints();
 		gbc_panel_1.gridwidth = 6;
@@ -201,7 +260,7 @@ public class Kvittering extends JDialog {
 		gbc_panel_1.insets = new Insets(0, 0, 5, 0);
 		gbc_panel_1.fill = GridBagConstraints.BOTH;
 		gbc_panel_1.gridx = 2;
-		gbc_panel_1.gridy = 10;
+		gbc_panel_1.gridy = 11;
 		getContentPane().add(panel_1, gbc_panel_1);
 		GridBagLayout gbl_panel_1 = new GridBagLayout();
 		gbl_panel_1.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0, 0};
@@ -301,7 +360,7 @@ public class Kvittering extends JDialog {
 		GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
 		gbc_btnNewButton.gridwidth = 4;
 		gbc_btnNewButton.gridx = 4;
-		gbc_btnNewButton.gridy = 12;
+		gbc_btnNewButton.gridy = 13;
 		getContentPane().add(btnNewButton, gbc_btnNewButton);
 	}
 
