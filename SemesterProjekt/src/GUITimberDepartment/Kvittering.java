@@ -67,7 +67,7 @@ public class Kvittering extends JDialog {
 	public Kvittering() {
 		setBounds(100, 100, 684, 593);
 		GridBagLayout gridBagLayout = new GridBagLayout();
-		gridBagLayout.columnWidths = new int[]{14, 114, 162, 0, 0, 0, 0, 0, 0};
+		gridBagLayout.columnWidths = new int[]{14, 230, 162, 0, 0, 0, 0, 0, 0};
 		gridBagLayout.rowHeights = new int[]{43, 32, 26, 28, 32, 0, 37, 26, 37, 0, 29, 36, 33, 0, 0};
 		gridBagLayout.columnWeights = new double[]{0.0, 1.0, 1.0, 0.0, 1.0, 1.0, 0.0, 0.0, Double.MIN_VALUE};
 		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 1.0, 0.0, 1.0, 1.0, 1.0, 0.0, 1.0, 0.0, Double.MIN_VALUE};
@@ -209,7 +209,7 @@ public class Kvittering extends JDialog {
 		gbc_panel_2.gridy = 4;
 		getContentPane().add(panel_2, gbc_panel_2);
 		GridBagLayout gbl_panel_2 = new GridBagLayout();
-		gbl_panel_2.columnWidths = new int[]{0, 0, 0, 0, 81, 5, 0};
+		gbl_panel_2.columnWidths = new int[]{128, 0, 0, 0, 86, 5, 0};
 		gbl_panel_2.rowHeights = new int[]{26, 4, 250, 0};
 		gbl_panel_2.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 6.0, Double.MIN_VALUE};
 		gbl_panel_2.rowWeights = new double[]{0.0, 1.0, 1.0, Double.MIN_VALUE};
@@ -263,26 +263,26 @@ public class Kvittering extends JDialog {
 		gbc_panel_1.gridy = 11;
 		getContentPane().add(panel_1, gbc_panel_1);
 		GridBagLayout gbl_panel_1 = new GridBagLayout();
-		gbl_panel_1.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0, 0};
+		gbl_panel_1.columnWidths = new int[]{0, 0, 0, 89, 0, 0, 0, 0};
 		gbl_panel_1.rowHeights = new int[]{16, 18, 9, 0};
-		gbl_panel_1.columnWeights = new double[]{0.0, 0.0, 1.0, 1.0, 1.0, 1.0, 0.0, 0.0};
+		gbl_panel_1.columnWeights = new double[]{0.0, 0.0, 1.0, 0.0, 1.0, 1.0, 0.0, 0.0};
 		gbl_panel_1.rowWeights = new double[]{1.0, 1.0, 1.0, Double.MIN_VALUE};
 		panel_1.setLayout(gbl_panel_1);
 		
 		lblNewLabel_6 = new JLabel("Rabat");
 		GridBagConstraints gbc_lblNewLabel_6 = new GridBagConstraints();
 		gbc_lblNewLabel_6.insets = new Insets(0, 0, 5, 5);
-		gbc_lblNewLabel_6.gridx = 1;
+		gbc_lblNewLabel_6.gridx = 3;
 		gbc_lblNewLabel_6.gridy = 0;
 		panel_1.add(lblNewLabel_6, gbc_lblNewLabel_6);
 		
 		textRabat = new JTextPane();
 		textRabat.setEditable(false);
 		GridBagConstraints gbc_textRabat = new GridBagConstraints();
-		gbc_textRabat.gridwidth = 5;
+		gbc_textRabat.gridwidth = 3;
 		gbc_textRabat.insets = new Insets(0, 0, 5, 5);
 		gbc_textRabat.fill = GridBagConstraints.BOTH;
-		gbc_textRabat.gridx = 2;
+		gbc_textRabat.gridx = 4;
 		gbc_textRabat.gridy = 0;
 		panel_1.add(textRabat, gbc_textRabat);
 		
@@ -302,20 +302,20 @@ public class Kvittering extends JDialog {
 		gbc_table_6.gridy = 1;
 		panel_1.add(table_6, gbc_table_6);
 		
-		lblNewLabel_4 = new JLabel("Total moms");
+		lblNewLabel_4 = new JLabel("Momsbeløb");
 		GridBagConstraints gbc_lblNewLabel_4 = new GridBagConstraints();
 		gbc_lblNewLabel_4.insets = new Insets(0, 0, 5, 5);
-		gbc_lblNewLabel_4.gridx = 1;
+		gbc_lblNewLabel_4.gridx = 3;
 		gbc_lblNewLabel_4.gridy = 1;
 		panel_1.add(lblNewLabel_4, gbc_lblNewLabel_4);
 		
 		textMoms = new JTextPane();
 		textMoms.setEditable(false);
 		GridBagConstraints gbc_textMoms = new GridBagConstraints();
-		gbc_textMoms.gridwidth = 5;
+		gbc_textMoms.gridwidth = 3;
 		gbc_textMoms.insets = new Insets(0, 0, 5, 5);
 		gbc_textMoms.fill = GridBagConstraints.BOTH;
-		gbc_textMoms.gridx = 2;
+		gbc_textMoms.gridx = 4;
 		gbc_textMoms.gridy = 1;
 		panel_1.add(textMoms, gbc_textMoms);
 		
@@ -327,10 +327,10 @@ public class Kvittering extends JDialog {
 		gbc_table_7.gridy = 1;
 		panel_1.add(table_7, gbc_table_7);
 		
-		lblNewLabel_7 = new JLabel("Total pris");
+		lblNewLabel_7 = new JLabel("Total beløb");
 		GridBagConstraints gbc_lblNewLabel_7 = new GridBagConstraints();
 		gbc_lblNewLabel_7.insets = new Insets(0, 0, 0, 5);
-		gbc_lblNewLabel_7.gridx = 1;
+		gbc_lblNewLabel_7.gridx = 3;
 		gbc_lblNewLabel_7.gridy = 2;
 		panel_1.add(lblNewLabel_7, gbc_lblNewLabel_7);
 		
@@ -338,9 +338,9 @@ public class Kvittering extends JDialog {
 		textTotalPris.setEditable(false);
 		GridBagConstraints gbc_textTotalPris = new GridBagConstraints();
 		gbc_textTotalPris.insets = new Insets(0, 0, 0, 5);
-		gbc_textTotalPris.gridwidth = 5;
+		gbc_textTotalPris.gridwidth = 3;
 		gbc_textTotalPris.fill = GridBagConstraints.BOTH;
-		gbc_textTotalPris.gridx = 2;
+		gbc_textTotalPris.gridx = 4;
 		gbc_textTotalPris.gridy = 2;
 		panel_1.add(textTotalPris, gbc_textTotalPris);
 		
