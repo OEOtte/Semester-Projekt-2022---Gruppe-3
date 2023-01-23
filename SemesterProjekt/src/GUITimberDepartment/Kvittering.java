@@ -3,11 +3,17 @@ package GUITimberDepartment;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import GUITimberDepartment.Cells.ProductListCellRenderer;
+import GUITimberDepartment.Cells.ProductListMomsCellRenderer;
+import GUITimberDepartment.Cells.ProductListNameCellRenderer;
+import GUITimberDepartment.Cells.ProductListPriceCellRenderer;
+import model.Sale;
 import model.CustomerRelated.Customer;
 import model.ProductRelated.Product;
 
@@ -28,6 +34,7 @@ import java.awt.event.ActionListener;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 
 public class Kvittering extends JDialog {
@@ -52,14 +59,15 @@ public class Kvittering extends JDialog {
 	private JTextPane textTotalPris;
 	private JTextPane textMoms;
 	private JTextPane textRabat;
-	private JList listProduktNavn;
-	private JList listPrisTotal;
-	private JList listMoms;
+	private JList<Product> listProduktNavn;
+	private JList<Product> listPrisTotal;
+	private JList<Product> listMoms;
 	private JPanel panel_2;
 	private JTextPane txtpnordre;
 	private JLabel lblNewLabel_1;
 	private JLabel lblNewLabel_11;
 	private JTextPane txtpnkontonummerlaves;
+	private int order = 0;
 
 	/**
 	 * Create the dialog.
@@ -362,17 +370,60 @@ public class Kvittering extends JDialog {
 		gbc_btnNewButton.gridx = 4;
 		gbc_btnNewButton.gridy = 13;
 		getContentPane().add(btnNewButton, gbc_btnNewButton);
+		init();
+	}
+
+	private void init() {
+		listProduktNavn.setCellRenderer(new ProductListNameCellRenderer());
+		listPrisTotal.setCellRenderer(new ProductListPriceCellRenderer());
+		listMoms.setCellRenderer(new ProductListMomsCellRenderer());
+		order++;
 	}
 
 	protected void onGodkendClicked() {
 		GUI gui = new GUI().getFrame();
 		gui.setVisible(true);
 		super.setVisible(false);
+		super.dispose();
 	}
 
-	public void setInfo(Customer c, JList<Product> list) {
-		// TODO Auto-generated method stub
-		
+	public void setInfo(Customer c, DefaultListModel<Product> dlm) {
+		listPrisTotal.setModel(dlm);
+		listMoms.setModel(dlm);
+		listProduktNavn.setModel(dlm);
+		txtpnkontonummerlaves.setText("Konto: " + c.getCustomerNumber());
+		txtpnordre.setText("Ordre: " + order);
+		ArrayList<Product> list = calcTotal(dlm);
+		Double total = 0.0;
+		Double tempMoms = 0.0;
+		Double tempRabat = 0.0;
+		for (int i = 0; i < list.size(); i++) {
+			total += list.get(i).getTotalProductPrice();
+			tempMoms += list.get(i).getVat();
+		}
+		String temp = "";
+		for (int i = 1; i <= 3; i++) {
+			temp = "group " + i;
+			if (temp.equals(c.getGroup())) {
+				String helper = "0." + i;
+				double x = Double.parseDouble(helper);
+				tempRabat = total*(x);
+			}
+		}
+		total -= tempRabat;
+		textTotalPris.setText("" + total + " kr");
+		textMoms.setText("" + tempMoms + " kr");
+		textRabat.setText("" + tempRabat + " kr");
+	}
+
+	private ArrayList<Product> calcTotal(DefaultListModel<Product> dlm) {
+		ArrayList<Product> list = new ArrayList<>();
+		while(list.size() != dlm.getSize()) {
+			for (int i = 0; i < dlm.getSize(); i++) {
+				list.add(dlm.getElementAt(i));
+			}
+		}
+		return list;
 	}
 
 }

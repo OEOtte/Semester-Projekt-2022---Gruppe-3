@@ -9,6 +9,7 @@ import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import GUITimberDepartment.Cells.ProductListCellRenderer;
 import model.CustomerRelated.Customer;
 import model.ProductRelated.Product;
 
@@ -38,6 +39,7 @@ public class TimberSale extends JDialog {
 	private JTextPane textAccountNr;
 	private Customer c;
 	private JButton btnBetalKonto;
+	private DefaultListModel<Product> dlm;
 	
 	/**
 	 * Create the dialog.
@@ -161,12 +163,13 @@ public class TimberSale extends JDialog {
 		super.setVisible(false);
 		Kvittering kvittering = new Kvittering();
 		kvittering.setVisible(true);
-		kvittering.setInfo(c, list);
+		kvittering.setInfo(c, dlm);
 	}
 
 	protected void findKontoClicked() {
 		FindKonto findKonto = FindKonto.getInstance();
 		findKonto.setVisible(true);
+		super.dispose();
 	}
 
 	protected void nyOrdreClicked() {
@@ -190,6 +193,7 @@ public class TimberSale extends JDialog {
 	public void displayProducts() {
 		super.setVisible(true);
 		list = addProduct.getList();
+		dlm = addProduct.getDLM();
 	}
 
 	public void setCustomer(Customer customer) {

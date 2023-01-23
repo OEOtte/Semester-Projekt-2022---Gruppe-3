@@ -280,6 +280,7 @@ public class FindKonto extends JDialog {
 			TimberSale ts = TimberSale.getTS();
 			ts.setVisible(true);
 			ts.setCustomer(customer);
+			super.dispose();
 		}
 	}
 }

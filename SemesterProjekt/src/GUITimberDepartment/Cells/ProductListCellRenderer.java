@@ -1,4 +1,4 @@
-package GUITimberDepartment;
+package GUITimberDepartment.Cells;
 
 import java.awt.Component;
 

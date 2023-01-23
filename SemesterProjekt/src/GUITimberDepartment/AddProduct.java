@@ -9,7 +9,9 @@ import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import GUITimberDepartment.Cells.ProductListCellRenderer;
 import controller.ProductController;
+import model.Sale;
 import model.ProductRelated.Product;
 import model.ProductRelated.ProductContainer;
 
@@ -39,18 +41,8 @@ public class AddProduct extends JDialog {
 	private JTextField txtAddTextBox;
 	private int methodCounter = 0;
 	private String helper = "";
-	/**
-	 * Launch the application.
-	 */
-//	public static void main(String[] args) {
-//		try {
-//			AddProduct dialog = new AddProduct();
-//			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-//			dialog.setVisible(true);
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//	}
+	private DefaultListModel<Product> dlm;
+
 
 	public AddProduct(JList<Product> listv2) {
 		setBounds(100, 100, 450, 300);
@@ -217,7 +209,7 @@ public class AddProduct extends JDialog {
 	}
 
 	private void displayProducts() {
-		DefaultListModel<Product> dlm = new DefaultListModel<>();
+		dlm = new DefaultListModel<>();
 		ProductContainer pContainer = ProductContainer.getInstance();
 		List<Product> container = pContainer.getContainerOfEveryProduct();
 		dlm.addAll(container);
@@ -231,6 +223,9 @@ public class AddProduct extends JDialog {
 	public JList<Product> getList() {
 		orderList.setModel(dlmV2);
 		return orderList;
+	}
+	public DefaultListModel<Product> getDLM() {
+		return dlmV2;
 	}
 	private void restartTS() {
 		TimberSale ts = TimberSale.getTS();
