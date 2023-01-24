@@ -218,7 +218,7 @@ public class Kvittering extends JDialog {
 		getContentPane().add(panel_2, gbc_panel_2);
 		GridBagLayout gbl_panel_2 = new GridBagLayout();
 		gbl_panel_2.columnWidths = new int[]{128, 0, 0, 0, 86, 5, 0};
-		gbl_panel_2.rowHeights = new int[]{26, 4, 250, 0};
+		gbl_panel_2.rowHeights = new int[]{35, 32, 250, 0};
 		gbl_panel_2.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 6.0, Double.MIN_VALUE};
 		gbl_panel_2.rowWeights = new double[]{0.0, 1.0, 1.0, Double.MIN_VALUE};
 		panel_2.setLayout(gbl_panel_2);
@@ -228,7 +228,7 @@ public class Kvittering extends JDialog {
 		GridBagConstraints gbc_lblNewLabel_1 = new GridBagConstraints();
 		gbc_lblNewLabel_1.anchor = GridBagConstraints.EAST;
 		gbc_lblNewLabel_1.insets = new Insets(0, 0, 5, 5);
-		gbc_lblNewLabel_1.gridx = 4;
+		gbc_lblNewLabel_1.gridx = 3;
 		gbc_lblNewLabel_1.gridy = 0;
 		panel_2.add(lblNewLabel_1, gbc_lblNewLabel_1);
 		
@@ -236,9 +236,9 @@ public class Kvittering extends JDialog {
 		txtpnordre.setText("//ORDRENUMMERLAVES");
 		txtpnordre.setEditable(false);
 		GridBagConstraints gbc_txtpnordre = new GridBagConstraints();
-		gbc_txtpnordre.insets = new Insets(0, 0, 5, 0);
+		gbc_txtpnordre.insets = new Insets(0, 0, 5, 5);
 		gbc_txtpnordre.fill = GridBagConstraints.BOTH;
-		gbc_txtpnordre.gridx = 5;
+		gbc_txtpnordre.gridx = 4;
 		gbc_txtpnordre.gridy = 0;
 		panel_2.add(txtpnordre, gbc_txtpnordre);
 		
@@ -247,7 +247,7 @@ public class Kvittering extends JDialog {
 		GridBagConstraints gbc_lblNewLabel_11 = new GridBagConstraints();
 		gbc_lblNewLabel_11.anchor = GridBagConstraints.EAST;
 		gbc_lblNewLabel_11.insets = new Insets(0, 0, 5, 5);
-		gbc_lblNewLabel_11.gridx = 4;
+		gbc_lblNewLabel_11.gridx = 3;
 		gbc_lblNewLabel_11.gridy = 1;
 		panel_2.add(lblNewLabel_11, gbc_lblNewLabel_11);
 		
@@ -255,9 +255,9 @@ public class Kvittering extends JDialog {
 		txtpnkontonummerlaves.setText("//KONTONUMMERLAVES");
 		txtpnkontonummerlaves.setEditable(false);
 		GridBagConstraints gbc_txtpnkontonummerlaves = new GridBagConstraints();
-		gbc_txtpnkontonummerlaves.insets = new Insets(0, 0, 5, 0);
+		gbc_txtpnkontonummerlaves.insets = new Insets(0, 0, 5, 5);
 		gbc_txtpnkontonummerlaves.fill = GridBagConstraints.BOTH;
-		gbc_txtpnkontonummerlaves.gridx = 5;
+		gbc_txtpnkontonummerlaves.gridx = 4;
 		gbc_txtpnkontonummerlaves.gridy = 1;
 		panel_2.add(txtpnkontonummerlaves, gbc_txtpnkontonummerlaves);
 		
@@ -412,7 +412,7 @@ public class Kvittering extends JDialog {
 		}
 		total -= tempRabat;
 		textTotalPris.setText("" + total + " kr");
-		textMoms.setText("" + tempMoms + " kr");
+		textMoms.setText("" + (total*0.20) + " kr");
 		textRabat.setText("" + tempRabat + " kr");
 	}
 
